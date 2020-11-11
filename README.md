@@ -44,6 +44,7 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
 - [Mobile Charger Connect](#charger-mobile-charger-connect)
 - [NRGKick Bluetooth](#charger-nrgkick-bluetooth)
 - [NRGKick Connect](#charger-nrgkick-connect)
+- [openWB (MQTT)](#charger-openwb-mqtt)
 - [OpenWB (remote-controlled using MQTT)](#charger-openwb-remote-controlled-using-mqtt)
 - [Phoenix EM-CP Controller (Ethernet/Modbus TCP)](#charger-phoenix-em-cp-controller-ethernet-modbus-tcp)
 - [Phoenix EV-CC Controller (Modbus)](#charger-phoenix-ev-cc-controller-modbus)
@@ -514,6 +515,15 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
   uri: http://192.168.1.4
   mac: 00:99:22 # MAC address
   password: # password
+```
+
+<a id="charger-openwb-mqtt"></a>
+#### openWB (MQTT)
+
+```yaml
+- type: openwb
+  broker: 192.168.0.2 # openWB IP
+  id: 1 # loadpoint id
 ```
 
 <a id="charger-openwb-remote-controlled-using-mqtt"></a>
