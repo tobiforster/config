@@ -6,4 +6,3 @@ sample: |
   user: # user
   password: # password
   vin: WBMW... # optional
-  cache: 5m # cache API response

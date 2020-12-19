@@ -13,8 +13,7 @@ func init() {
 capacity: 90 # kWh
 user: # email
 password: # password
-vin: WTSLA...
-cache: 5m # cache API response`,
+vin: WTSLA...`,
 	}
 
 	registry.Add(template)

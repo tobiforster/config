@@ -12,8 +12,7 @@ func init() {
 		Sample: `title: Kona # display name for UI
 capacity: 64 # kWh
 user: # user
-password: # password
-cache: 5m # cache API response`,
+password: # password`,
 	}
 
 	registry.Add(template)
