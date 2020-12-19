@@ -6,4 +6,3 @@ sample: |
   user: # email
   password: # password
   vin: WTSLA...
-  cache: 5m # cache API response
