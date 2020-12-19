@@ -13,8 +13,7 @@ func init() {
 capacity: 50 # kWh
 charge:
   type: ...
-  # ...
-cache: 5m # cache duration`,
+  # ...`,
 	}
 
 	registry.Add(template)

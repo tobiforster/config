@@ -637,7 +637,6 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
   user: # user
   password: # password
   vin: WAUZZZ... # optional
-  cache: 5m # cache API response
 ```
 
 <a id="vehicle-bmw-i3"></a>
@@ -650,7 +649,6 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
   user: # user
   password: # password
   vin: WBMW... # optional
-  cache: 5m # cache API response
 ```
 
 <a id="vehicle-ford-kuga-mustang-etc"></a>
@@ -663,7 +661,6 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
   user: # user
   password: # password
   vin: WF0FXX... # optional
-  cache: 5m # cache API response
 ```
 
 <a id="vehicle-generisch"></a>
@@ -676,7 +673,6 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
   charge:
     type: ...
     # ...
-  cache: 5m # cache duration
 ```
 
 <a id="vehicle-generisch-script"></a>
@@ -702,7 +698,6 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
   capacity: 64 # kWh
   user: # user
   password: # password
-  cache: 5m # cache API response
 ```
 
 <a id="vehicle-kia-e-niro-e-soul-etc"></a>
@@ -714,7 +709,6 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
   capacity: 64 # kWh
   user: # user
   password: # password
-  cache: 5m # cache API response
 ```
 
 <a id="vehicle-nissan-leaf"></a>
@@ -726,8 +720,6 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
   capacity: 60 # kWh
   user: # user
   password: # password
-  region: NE # carwings region, leave empty for Europe
-  cache: 5m # cache API response
 ```
 
 <a id="vehicle-porsche"></a>
@@ -740,7 +732,6 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
   user: # user
   password: # password
   vin: WP...
-  cache: 5m # cache API response
 ```
 
 <a id="vehicle-renault-zoe"></a>
@@ -753,7 +744,6 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
   user: # user
   password: # password
   vin: WREN... # optional
-  cache: 5m # cache API response
 ```
 
 <a id="vehicle-tesla"></a>
@@ -766,7 +756,6 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
   user: # email
   password: # password
   vin: WTSLA...
-  cache: 5m # cache API response
 ```
 
 <a id="vehicle-vw-eup-id-3-id-4-etc"></a>
@@ -779,6 +768,5 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
   user: # user
   password: # password
   vin: WVWZZZ... # optional
-  cache: 5m # cache API response
 ```
 

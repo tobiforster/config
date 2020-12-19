@@ -13,8 +13,7 @@ func init() {
 capacity: 83 # kWh
 user: # user
 password: # password
-vin: WP...
-cache: 5m # cache API response`,
+vin: WP...`,
 	}
 
 	registry.Add(template)

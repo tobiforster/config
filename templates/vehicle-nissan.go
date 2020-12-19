@@ -12,9 +12,7 @@ func init() {
 		Sample: `title: Leaf # display name for UI
 capacity: 60 # kWh
 user: # user
-password: # password
-region: NE # carwings region, leave empty for Europe
-cache: 5m # cache API response`,
+password: # password`,
 	}
 
 	registry.Add(template)
