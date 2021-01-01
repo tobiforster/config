@@ -41,6 +41,7 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
 - [Generisch (MQTT)](#charger-generisch-mqtt)
 - [go-eCharger (Cloud)](#charger-go-echarger-cloud)
 - [go-eCharger (Lokal)](#charger-go-echarger-lokal)
+- [i-CHARGE CION](#charger-i-charge-cion)
 - [KEBA Connect](#charger-keba-connect)
 - [Mobile Charger Connect](#charger-mobile-charger-connect)
 - [NRGKick Bluetooth](#charger-nrgkick-bluetooth)
@@ -496,6 +497,49 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
 ```yaml
 - type: go-e
   uri: http://192.0.2.2 # go-e ip address (local)
+```
+
+<a id="charger-i-charge-cion"></a>
+#### i-CHARGE CION
+
+```yaml
+- type: default
+  status:
+    type: modbus
+    uri: 192.0.2.2:502
+    rtu: true
+    id: 1
+    register: # manual register configuration
+        address: 139 # CP-Status
+        type: holding
+        decode: uint16
+  enabled:
+    type: modbus
+    uri: 192.0.2.2:502
+    rtu: true
+    id: 1 
+    register: # manual register configuration
+      address: 100 # Zustand
+      type: holding
+      decode: uint16
+  enable:
+    type: modbus
+    uri: 192.0.2.2:502
+    rtu: true
+    id: 1
+    register: # manual register configuration
+      address: 100 # ein / aus
+      type: writesingle
+      decode: uint16
+  maxcurrent:
+    type: modbus
+    uri: 192.0.2.2:502
+    rtu: true
+    id: 1
+    register: # manual register configuration
+      address: 127 # Strom max
+      type: writesingle
+      decode: uint16
 ```
 
 <a id="charger-keba-connect"></a>
