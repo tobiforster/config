@@ -8,7 +8,7 @@ func init() {
 	template := registry.Template{
 		Class:  "charger",
 		Type:   "default",
-		Name:   "i-CHARGE CION",
+		Name:   "i-CHARGE CION (Modbus)",
 		Sample: `status:
   type: modbus
   uri: 192.0.2.2:502

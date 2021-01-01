@@ -1,7 +1,7 @@
 type: vw
-name: VW (eUp, ID.3, ID.4, etc)
+name: VW (e-Up, e-Golf, etc)
 sample: |
-  title: ID.3 # display name for UI
+  title: Golf # display name for UI
   capacity: 10 # kWh
   user: # user
   password: # password

@@ -1,5 +1,5 @@
 type: default
-name: i-CHARGE CION
+name: i-CHARGE CION (Modbus)
 sample: |
   status:
     type: modbus

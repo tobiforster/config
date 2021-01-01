@@ -4,6 +4,29 @@
 
 Configuration examples for the [EVCC EV Charge Controller](https://github.com/andig/evcc).
 
+[EVCC](https://github.com/andig/evcc) supports a growing list of [chargers](#chargers), [meters](#meters) and [vehicles](#vehicles). See below for detailed configuration.
+Additional devices can be configured using the `generic` device type and related [plugins](#https://github.com/andig/evcc#plugins).
+
+## Chargers
+
+- [EVSE Wifi](#charger-evse-wifi)
+- [Generisch](#charger-generisch)
+- [Generisch (MQTT)](#charger-generisch-mqtt)
+- [go-eCharger (Cloud)](#charger-go-echarger-cloud)
+- [go-eCharger (Lokal)](#charger-go-echarger-lokal)
+- [i-CHARGE CION (Modbus)](#charger-i-charge-cion-modbus)
+- [KEBA Connect](#charger-keba-connect)
+- [Mobile Charger Connect](#charger-mobile-charger-connect)
+- [NRGKick Bluetooth](#charger-nrgkick-bluetooth)
+- [NRGKick Connect](#charger-nrgkick-connect)
+- [openWB (MQTT)](#charger-openwb-mqtt)
+- [Phoenix EM-CP Controller (Ethernet/Modbus TCP)](#charger-phoenix-em-cp-controller-ethernet-modbus-tcp)
+- [Phoenix EV-CC Controller (Modbus)](#charger-phoenix-ev-cc-controller-modbus)
+- [Simple EVSE (Ethernet/Modbus TCP)](#charger-simple-evse-ethernet-modbus-tcp)
+- [Simple EVSE (RS485)](#charger-simple-evse-rs485)
+- [Wallbe (Eco, Pro)](#charger-wallbe-eco-pro)
+- [Wallbe (pre 2019 EV-CC-AC1 controller)](#charger-wallbe-pre-2019-ev-cc-ac1-controller)
+
 ## Meters
 
 - [Discovergy (Grid or PV meter/ HTTP)](#meter-discovergy-grid-or-pv-meter-http)
@@ -34,27 +57,6 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
 - [vzlogger (Push Server/ Websocket)](#meter-vzlogger-push-server-websocket)
 - [vzlogger (split import/export channels)](#meter-vzlogger-split-import-export-channels)
 
-## Chargers
-
-- [EVSE Wifi](#charger-evse-wifi)
-- [Generisch](#charger-generisch)
-- [Generisch (MQTT)](#charger-generisch-mqtt)
-- [go-eCharger (Cloud)](#charger-go-echarger-cloud)
-- [go-eCharger (Lokal)](#charger-go-echarger-lokal)
-- [i-CHARGE CION](#charger-i-charge-cion)
-- [KEBA Connect](#charger-keba-connect)
-- [Mobile Charger Connect](#charger-mobile-charger-connect)
-- [NRGKick Bluetooth](#charger-nrgkick-bluetooth)
-- [NRGKick Connect](#charger-nrgkick-connect)
-- [openWB (MQTT)](#charger-openwb-mqtt)
-- [OpenWB (remote-controlled using MQTT)](#charger-openwb-remote-controlled-using-mqtt)
-- [Phoenix EM-CP Controller (Ethernet/Modbus TCP)](#charger-phoenix-em-cp-controller-ethernet-modbus-tcp)
-- [Phoenix EV-CC Controller (Modbus)](#charger-phoenix-ev-cc-controller-modbus)
-- [Simple EVSE (Ethernet/Modbus TCP)](#charger-simple-evse-ethernet-modbus-tcp)
-- [Simple EVSE (USB)](#charger-simple-evse-usb)
-- [Wallbe (Eco, Pro)](#charger-wallbe-eco-pro)
-- [Wallbe (pre 2019 EV-CC-AC1 controller)](#charger-wallbe-pre-2019-ev-cc-ac1-controller)
-
 ## Vehicles
 
 - [Audi (eTron etc)](#vehicle-audi-etron-etc)
@@ -68,7 +70,8 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
 - [Porsche](#vehicle-porsche)
 - [Renault (Zoe)](#vehicle-renault-zoe)
 - [Tesla](#vehicle-tesla)
-- [VW (eUp, ID.3, ID.4, etc)](#vehicle-vw-eup-id-3-id-4-etc)
+- [VW (e-Up, e-Golf, etc)](#vehicle-vw-e-up-e-golf-etc)
+- [VW ID (ID.3, ID.4, but also e-Golf, e-Up)](#vehicle-vw-id-id-3-id-4-but-also-e-golf-e-up)
 
 ## Details
 
@@ -499,8 +502,8 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
   uri: http://192.0.2.2 # go-e ip address (local)
 ```
 
-<a id="charger-i-charge-cion"></a>
-#### i-CHARGE CION
+<a id="charger-i-charge-cion-modbus"></a>
+#### i-CHARGE CION (Modbus)
 
 ```yaml
 - type: default
@@ -589,42 +592,13 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
   id: 1 # loadpoint id
 ```
 
-<a id="charger-openwb-remote-controlled-using-mqtt"></a>
-#### OpenWB (remote-controlled using MQTT)
-
-```yaml
-- type: default
-  status:
-    # with openWB, charging status (A..F) this is split between "plugged" and "charging"
-    # the openwb plugin combines both into status (charging=C, plugged=B, otherwise=A)
-    type: openwb # use openwb plugin
-    plugged:
-      type: mqtt
-      topic: openWB/lp/1/boolPlugStat
-    charging:
-      type: mqtt
-      topic: openWB/lp/1/boolChargeStat
-  enabled:
-    type: mqtt
-    topic: openWB/lp/1/ChargePointEnabled
-    timeout: 30s
-  enable:
-    type: mqtt
-    topic: openWB/set/lp1/ChargePointEnabled
-    payload: ${enable:%d} # write payload definition
-  maxcurrent:
-    type: mqtt
-    topic: openWB/set/lp1/DirectChargeAmps
-    payload: ${maxCurrent:%d} # write payload definition
-```
-
 <a id="charger-phoenix-em-cp-controller-ethernet-modbus-tcp"></a>
 #### Phoenix EM-CP Controller (Ethernet/Modbus TCP)
 
 ```yaml
 - type: phoenix-emcp
   uri: 192.0.2.2:502 # TCP ModBus address
-  id: 1
+  id: 1 # slave id
 ```
 
 <a id="charger-phoenix-ev-cc-controller-modbus"></a>
@@ -646,8 +620,8 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
   uri: 192.0.2.2:502 # TCP ModBus address
 ```
 
-<a id="charger-simple-evse-usb"></a>
-#### Simple EVSE (USB)
+<a id="charger-simple-evse-rs485"></a>
+#### Simple EVSE (RS485)
 
 ```yaml
 - type: simpleevse
@@ -806,13 +780,25 @@ Configuration examples for the [EVCC EV Charge Controller](https://github.com/an
   vin: WTSLA...
 ```
 
-<a id="vehicle-vw-eup-id-3-id-4-etc"></a>
-#### VW (eUp, ID.3, ID.4, etc)
+<a id="vehicle-vw-e-up-e-golf-etc"></a>
+#### VW (e-Up, e-Golf, etc)
 
 ```yaml
 - type: vw
-  title: ID.3 # display name for UI
+  title: Golf # display name for UI
   capacity: 10 # kWh
+  user: # user
+  password: # password
+  vin: WVWZZZ... # optional
+```
+
+<a id="vehicle-vw-id-id-3-id-4-but-also-e-golf-e-up"></a>
+#### VW ID (ID.3, ID.4, but also e-Golf, e-Up)
+
+```yaml
+- type: id
+  title: ID.3 # display name for UI
+  capacity: 50 # kWh
   user: # user
   password: # password
   vin: WVWZZZ... # optional

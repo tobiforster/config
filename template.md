@@ -4,13 +4,16 @@
 
 Configuration examples for the [EVCC EV Charge Controller](https://github.com/andig/evcc).
 
-## Meters
-{{range filter "meter" .}}
-- [{{.Name}}](#{{href "meter" .Name}}){{end}}
+[EVCC](https://github.com/andig/evcc) supports a growing list of [chargers](#chargers), [meters](#meters) and [vehicles](#vehicles). See below for detailed configuration.
+Additional devices can be configured using the `generic` device type and related [plugins](#https://github.com/andig/evcc#plugins).
 
 ## Chargers
 {{range filter "charger" .}}
 - [{{.Name}}](#{{href "charger" .Name}}){{end}}
+
+## Meters
+{{range filter "meter" .}}
+- [{{.Name}}](#{{href "meter" .Name}}){{end}}
 
 ## Vehicles
 {{range filter "vehicle" .}}
