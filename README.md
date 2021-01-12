@@ -372,8 +372,8 @@ Additional devices can be configured using the `generic` device type and related
 
 ```yaml
 - type: tesla
-  uri: http://192.0.2.2/api/meters/aggregates
-  usage: battery # grid meter: `site`, pv: `solar`, battery: `battery`
+  uri: http://192.0.2.2/
+  usage: battery # value: `grid`, `pv`, `battery`
 ```
 
 <a id="meter-tesla-powerwall-grid-meter"></a>
@@ -381,8 +381,8 @@ Additional devices can be configured using the `generic` device type and related
 
 ```yaml
 - type: tesla
-  uri: http://192.0.2.2/api/meters/aggregates
-  usage: site # grid meter: `site`, pv: `solar`, battery: `battery`
+  uri: http://192.0.2.2/
+  usage: grid # value: `grid`, `pv`, `battery`
 ```
 
 <a id="meter-tesla-powerwall-pv-meter"></a>
@@ -390,8 +390,8 @@ Additional devices can be configured using the `generic` device type and related
 
 ```yaml
 - type: tesla
-  uri: http://192.0.2.2/api/meters/aggregates
-  usage: solar # grid meter: `site`, pv: `solar`, battery: `battery`
+  uri: http://192.0.2.2/
+  usage: pv # value: `grid`, `pv`, `battery`
 ```
 
 <a id="meter-vzlogger-http"></a>

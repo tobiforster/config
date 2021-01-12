@@ -9,8 +9,8 @@ func init() {
 		Class:  "meter",
 		Type:   "tesla",
 		Name:   "Tesla Powerwall (Grid meter)",
-		Sample: `uri: http://192.0.2.2/api/meters/aggregates
-usage: site # grid meter: `+"`"+`site`+"`"+`, pv: `+"`"+`solar`+"`"+`, battery: `+"`"+`battery`+"`"+``,
+		Sample: `uri: http://192.0.2.2/
+usage: grid # value: `+"`"+`grid`+"`"+`, `+"`"+`pv`+"`"+`, `+"`"+`battery`+"`"+``,
 	}
 
 	registry.Add(template)
