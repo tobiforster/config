@@ -29,7 +29,7 @@ Additional devices can be configured using the `generic` device type and related
 
 ## Meters
 
-- [Discovergy (Grid or PV meter/ HTTP)](#meter-discovergy-grid-or-pv-meter-http)
+- [Discovergy](#meter-discovergy)
 - [E3DC (Battery)](#meter-e3dc-battery)
 - [E3DC (Grid Meter)](#meter-e3dc-grid-meter)
 - [E3DC (PV Meter)](#meter-e3dc-pv-meter)
@@ -78,20 +78,14 @@ Additional devices can be configured using the `generic` device type and related
 ### Meters
 
 
-<a id="meter-discovergy-grid-or-pv-meter-http"></a>
-#### Discovergy (Grid or PV meter/ HTTP)
+<a id="meter-discovergy"></a>
+#### Discovergy
 
 ```yaml
-- type: default
-  power: # power reading
-    type: http # use http plugin
-    auth:
-      type: basic
-      user: demo@discovergy.com # Discovergy user name
-      password: demo # password 
-    uri: https://api.discovergy.com/public/v1/last_reading?meterId=659a3da00324400da66cef81e1cbe3c5 # append meter id
-    jq: .values.power
-    scale: 0.001
+- type: discovergy
+  user: demo@discovergy.com 
+  password: demo # password 
+  meter: 659a3da00324400da66cef81e1cbe3c5
 ```
 
 <a id="meter-e3dc-battery"></a>
