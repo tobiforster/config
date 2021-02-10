@@ -11,7 +11,7 @@ func init() {
 		Name:   "Discovergy",
 		Sample: `user: demo@discovergy.com 
 password: demo # password 
-meter: 659a3da00324400da66cef81e1cbe3c5`,
+meter: 1ESY1161229886`,
 	}
 
 	registry.Add(template)
