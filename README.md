@@ -19,6 +19,7 @@ If you want to contribute configurations to this repository please open a Pull R
 - [EVSE DIN (Modbus RTU)](#charger-evse-din-modbus-rtu)
 - [EVSE DIN (Modbus/TCP)](#charger-evse-din-modbus-tcp)
 - [EVSE-Wifi](#charger-evse-wifi)
+- [FritzDECT](#charger-fritzdect)
 - [Generic](#charger-generic)
 - [Generic (MQTT)](#charger-generic-mqtt)
 - [go-eCharger](#charger-go-echarger)
@@ -83,6 +84,7 @@ If you want to contribute configurations to this repository please open a Pull R
 - [Ford (Kuga, Mustang, etc)](#vehicle-ford-kuga-mustang-etc)
 - [Generic](#vehicle-generic)
 - [Generic (Script)](#vehicle-generic-script)
+- [Generic EV without SoC (Javascript)](#vehicle-generic-ev-without-soc-javascript)
 - [Hyundai (Kona, Ioniq)](#vehicle-hyundai-kona-ioniq)
 - [Kia (e-Niro, e-Soul, etc)](#vehicle-kia-e-niro-e-soul-etc)
 - [Nissan (Leaf)](#vehicle-nissan-leaf)
@@ -633,6 +635,18 @@ If you want to contribute configurations to this repository please open a Pull R
   uri: http://192.0.2.2
 ```
 
+<a id="charger-fritzdect"></a>
+#### FritzDECT
+
+```yaml
+- type: fritzdect
+  uri: https://fritz.box # FRITZ!Box ip address (local)
+  user: xxxxxxxxxx # FRITZ!Box username (Has to have Smart Home privileges!)
+  password: yyyyyyyyyy # FRITZ!Box password
+  ain: 117788992233 # switch actor identification number without blanks (see AIN number on switch sticker)
+  standbypower: 10 # standbypower threshold in W (depends on embeded vehicle charger)
+```
+
 <a id="charger-generic"></a>
 #### Generic
 
@@ -894,6 +908,18 @@ If you want to contribute configurations to this repository please open a Pull R
     cmd: /bin/sh -c "echo 50" # actual command
     timeout: 3s # kill script after 3 seconds
   cache: 5m # cache duration
+```
+
+<a id="vehicle-generic-ev-without-soc-javascript"></a>
+#### Generic EV without SoC (Javascript)
+
+```yaml
+- type: default
+  title: My electric vehicle # display name for UI
+  capacity: 10 # kWh
+  charge:
+    type: js
+    script: 95 // vehicle SoC in %
 ```
 
 <a id="vehicle-hyundai-kona-ioniq"></a>
