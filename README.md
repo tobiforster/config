@@ -89,6 +89,7 @@ If you want to contribute configurations to this repository please open a Pull R
 - [Hyundai (Kona, Ioniq)](#vehicle-hyundai-kona-ioniq)
 - [Kia (e-Niro, e-Soul, etc)](#vehicle-kia-e-niro-e-soul-etc)
 - [Nissan (Leaf)](#vehicle-nissan-leaf)
+- [NIU E-Scooter](#vehicle-niu-e-scooter)
 - [Porsche](#vehicle-porsche)
 - [Renault (Zoe)](#vehicle-renault-zoe)
 - [Tesla](#vehicle-tesla)
@@ -965,6 +966,18 @@ If you want to contribute configurations to this repository please open a Pull R
   capacity: 60 # kWh
   user: # user
   password: # password
+```
+
+<a id="vehicle-niu-e-scooter"></a>
+#### NIU E-Scooter
+
+```yaml
+- type: niu
+  title: NIU E-Scooter # display name for UI
+  capacity: 4 # kWh
+  user: xxxxxxx # NIU app user
+  password: xxxxxx # NIU app password
+  serial: NXXXXXXXXXXXXXXX # NIU E-Scooter serial number like shown in app 
 ```
 
 <a id="vehicle-porsche"></a>
