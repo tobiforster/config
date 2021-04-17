@@ -33,6 +33,7 @@ If you want to contribute configurations to this repository please open a Pull R
 - [Phoenix EM-CP-PP-ETH Controller (Modbus/TCP)](#charger-phoenix-em-cp-pp-eth-controller-modbus-tcp)
 - [Phoenix EV-ETH Controller (Modbus/TCP)](#charger-phoenix-ev-eth-controller-modbus-tcp)
 - [Phoenix EV-SER Controller (Modbus RTU)](#charger-phoenix-ev-ser-controller-modbus-rtu)
+- [Tasmota](#charger-tasmota)
 - [Wallbe (Eco, Pro)](#charger-wallbe-eco-pro)
 - [Wallbe (pre 2019 EV-CC-AC1 controller)](#charger-wallbe-pre-2019-ev-cc-ac1-controller)
 
@@ -825,6 +826,17 @@ If you want to contribute configurations to this repository please open a Pull R
   baudrate: 9600 # configurable (S2/DIP 1)
   comset: 8N1
   id: 1 # configurable (S2/DIP 2–6)
+```
+
+<a id="charger-tasmota"></a>
+#### Tasmota
+
+```yaml
+- type: tasmota
+  uri: http://192.168.xxx.xxx # tasmota device ip address (local)
+  # user: xxxx # user, (optional) in case user + password are defined
+  # password: xxxxx #  (optional) in case user + password are defined
+  standbypower: 10 # standbypower threshold / trickle charge of used charger in W
 ```
 
 <a id="charger-wallbe-eco-pro"></a>
