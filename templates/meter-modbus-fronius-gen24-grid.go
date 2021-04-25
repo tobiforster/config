@@ -9,9 +9,10 @@ func init() {
 		Class:  "meter",
 		Type:   "modbus",
 		Name:   "Fronius Symo GEN24 Plus (Grid Meter)",
-		Sample: `model: 213 # sunspec meter
+		Sample: `model: sunspec
 uri: 192.0.2.2:502
-id: 200`,
+id: 200
+power: 213:W # sunspec meter`,
 	}
 
 	registry.Add(template)
