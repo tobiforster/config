@@ -35,6 +35,7 @@ If you want to contribute configurations to this repository please open a Pull R
 - [Phoenix EV-SER Controller (Modbus RTU)](#charger-phoenix-ev-ser-controller-modbus-rtu)
 - [Tasmota](#charger-tasmota)
 - [TinkerForge WARP Charger](#charger-tinkerforge-warp-charger)
+- [TP-LINK Smart Plug](#charger-tp-link-smart-plug)
 - [Wallbe (Eco, Pro)](#charger-wallbe-eco-pro)
 - [Wallbe (pre 2019 EV-CC-AC1 controller)](#charger-wallbe-pre-2019-ev-cc-ac1-controller)
 
@@ -684,7 +685,7 @@ If you want to contribute configurations to this repository please open a Pull R
   user: xxxxxxxxxx # FRITZ!Box username (Has to have Smart Home privileges!)
   password: yyyyyyyyyy # FRITZ!Box password
   ain: '007788992233' # switch actor identification number without blanks (see AIN number on switch sticker)
-  standbypower: 10 # standbypower threshold in W (depends on embeded vehicle charger)
+  standbypower: 15 # treat as charging above this power
 ```
 
 <a id="charger-generic"></a>
@@ -875,7 +876,7 @@ If you want to contribute configurations to this repository please open a Pull R
   uri: http://192.168.xxx.xxx # tasmota device ip address (local)
   # user: xxxx # user, (optional) in case user + password are defined
   # password: xxxxx #  (optional) in case user + password are defined
-  standbypower: 10 # standbypower threshold / trickle charge of used charger in W
+  standbypower: 15 # treat as charging above this power
 ```
 
 <a id="charger-tinkerforge-warp-charger"></a>
@@ -887,6 +888,15 @@ If you want to contribute configurations to this repository please open a Pull R
   topic: warp
   useMeter: true # WARP Charger Pro
   timeout: 30s
+```
+
+<a id="charger-tp-link-smart-plug"></a>
+#### TP-LINK Smart Plug
+
+```yaml
+- type: tplink
+  uri: 192.0.2.2 # TP-LINK Smart Plug ip address (local)
+  standbypower: 15 # treat as charging above this power
 ```
 
 <a id="charger-wallbe-eco-pro"></a>
