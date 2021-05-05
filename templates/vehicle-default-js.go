@@ -7,12 +7,12 @@ import (
 func init() {
 	template := registry.Template{
 		Class:  "vehicle",
-		Type:   "default",
+		Type:   "custom",
 		Name:   "Generic EV without SoC (Javascript)",
 		Sample: `title: My electric vehicle # display name for UI
 capacity: 10 # kWh
 charge:
-  type: js
+  source: js
   script: 95 // vehicle SoC in %`,
 	}
 

@@ -119,9 +119,9 @@ If you want to contribute configurations to this repository please open a Pull R
 #### E3DC (Battery Meter)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: modbus
+    source: modbus
     uri: e3dc.fritz.box:502
     id: 1 # ModBus slave id
     register: # manual register configuration
@@ -130,7 +130,7 @@ If you want to contribute configurations to this repository please open a Pull R
       decode: int32s
     scale: -1 # reverse direction
   soc:
-    type: modbus
+    source: modbus
     uri: e3dc.fritz.box:502
     id: 1 # ModBus slave id
     register: # manual register configuration
@@ -143,9 +143,9 @@ If you want to contribute configurations to this repository please open a Pull R
 #### E3DC (Grid Meter)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: modbus
+    source: modbus
     uri: e3dc.fritz.box:502
     id: 1 # ModBus slave id
     register: # manual register configuration
@@ -158,9 +158,9 @@ If you want to contribute configurations to this repository please open a Pull R
 #### E3DC (PV Meter)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: modbus
+    source: modbus
     uri: e3dc.fritz.box:502
     id: 1 # ModBus slave id
     register: # manual register configuration
@@ -198,13 +198,13 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Fronius Solar API V1 (Battery Meter/ HTTP)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: http
+    source: http
     uri: http://192.0.2.2/solar_api/v1/GetPowerFlowRealtimeData.fcgi
     jq: if .Body.Data.Site.P_Akku == null then 0 else .Body.Data.Site.P_Akku end
   soc:
-    type: http
+    source: http
     uri: http://192.0.2.2/solar_api/v1/GetPowerFlowRealtimeData.fcgi
     jq: .Body.Data.Inverters."1".SOC
 ```
@@ -213,9 +213,9 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Fronius Solar API V1 (Grid Meter/ HTTP)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: http
+    source: http
     uri: http://192.0.2.2/solar_api/v1/GetPowerFlowRealtimeData.fcgi
     jq: if .Body.Data.Site.P_Grid == null then 0 else .Body.Data.Site.P_Grid end
 ```
@@ -224,9 +224,9 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Fronius Solar API V1 (PV Meter/ HTTP)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: http
+    source: http
     uri: http://192.0.2.2/solar_api/v1/GetPowerFlowRealtimeData.fcgi
     jq: if .Body.Data.Site.P_PV == null then 0 else .Body.Data.Site.P_PV end
 ```
@@ -235,23 +235,23 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Fronius Symo GEN24 Plus (Battery Meter)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: calc
+    source: calc
     add:
-    - type: modbus
+    - source: modbus
       model: sunspec
       uri: 192.0.2.2:502
       id: 1
       value: 160:3:DCW # mppt 3 charge
       scale: -1
-    - type: modbus
+    - source: modbus
       model: sunspec
       uri: 192.0.2.2:502
       id: 1
       value: 160:4:DCW # mppt 4 discharge
   soc:
-    type: modbus
+    source: modbus
     model: sunspec
     uri: 192.0.2.2:502
     id: 1
@@ -273,16 +273,16 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Fronius Symo GEN24 Plus (PV Meter)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: calc
+    source: calc
     add:
-    - type: modbus
+    - source: modbus
       model: sunspec
       uri: 192.0.2.2:502
       id: 1
       value: 160:1:DCW # mpp 1 pv
-    - type: modbus
+    - source: modbus
       model: sunspec
       uri: 192.0.2.2:502
       id: 1
@@ -293,9 +293,9 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Generic (MQTT)
 
 ```yaml
-- type: default
+- type: custom
   power: # power reading
-    type: mqtt # use mqtt plugin
+    source: mqtt # use mqtt plugin
     topic: mbmd/sdm1-1/Power # mqtt topic
     timeout: 10s # don't use older values
 ```
@@ -304,9 +304,9 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Generic (Script)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: script # use script plugin
+    source: script # use script plugin
     cmd: /bin/sh -c "echo 0" # actual command
     timeout: 3s # kill script after 3 seconds
 ```
@@ -345,9 +345,9 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Kostal Energy Meter via inverter (Grid Meter)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: modbus # use ModBus plugin
+    source: modbus # use ModBus plugin
     uri: 192.0.2.2:1502 # inverter port
     id: 71
     register: # manual non-sunspec register configuration
@@ -389,16 +389,16 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Multiple DC MPP strings combined (PV Meter)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: calc
+    source: calc
     add:
-    - type: modbus
+    - source: modbus
       model: sunspec
       value: 160:1:DCW # SunSpec Model 160 MPP string 1 DCW
       uri: 192.0.2.2:502
       id: 1
-    - type: modbus
+    - source: modbus
       model: sunspec
       value: 160:2:DCW # SunSpec Model 160 MPP string 2 DCW
       uri: 192.0.2.2:502
@@ -409,15 +409,15 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Multiple PV inverters combined (PV Meter)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: calc
+    source: calc
     add:
-    - type: modbus
+    - source: modbus
       model: sunspec
       uri: 192.0.2.2:502
       id: 1
-    - type: modbus
+    - source: modbus
       model: sunspec
       uri: 192.0.2.3:502
       id: 1
@@ -454,9 +454,9 @@ If you want to contribute configurations to this repository please open a Pull R
 #### SolarEdge (Grid Meter)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: modbus
+    source: modbus
     uri: 192.0.2.2:502 # Port 502 (SetApp) or 1502 (LCD)
     id: 1
     register:
@@ -470,16 +470,16 @@ If you want to contribute configurations to this repository please open a Pull R
 #### SolarEdge Hybrid Inverter (PV Meter)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: calc
+    source: calc
     add:
-    - type: modbus
+    - source: modbus
       model: sunspec
       uri: 192.0.2.2:502 # Port 502 (SetApp) or 1502 (LCD)
       id: 1
       value: 103:DCW
-    - type: modbus
+    - source: modbus
       uri: 192.0.2.2:502 # Port 502 (SetApp) or 1502 (LCD)
       id: 1
       register:
@@ -492,9 +492,9 @@ If you want to contribute configurations to this repository please open a Pull R
 #### SolarEdge StorEdge (Battery Meter)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: modbus
+    source: modbus
     uri: 192.0.2.2:502 # Port 502 (SetApp) or 1502 (LCD)
     id: 1
     register:
@@ -503,7 +503,7 @@ If you want to contribute configurations to this repository please open a Pull R
       decode: float32s
     scale: -1
   soc:
-    type: modbus
+    source: modbus
     uri: 192.0.2.2:502 # Port 502 (SetApp) or 1502 (LCD)
     id: 1
     register:
@@ -516,9 +516,9 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Solarlog (Grid Meter)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: modbus
+    source: modbus
     uri: 192.0.2.2:502 # IP address of the SolarLog device and ModBus port address
     id: 1
     register:
@@ -531,9 +531,9 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Solarlog (PV Meter)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: modbus
+    source: modbus
     uri: 192.0.2.2:502 # IP address of the SolarLog  device and ModBus port address
     id: 1
     register:
@@ -546,13 +546,13 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Sonnenbatterie Eco/10 (Battery Meter/ HTTP)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: http
+    source: http
     uri: http://192.0.2.2:8080/api/v1/status
     jq: .Pac_total_W
   soc:
-    type: http
+    source: http
     uri: http://192.0.2.2:8080/api/v1/status
     jq: .USOC
 ```
@@ -561,9 +561,9 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Sonnenbatterie Eco/10 (Grid Meter/ HTTP)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: http
+    source: http
     uri: http://192.0.2.2:8080/api/v1/status
     jq: .GridFeedIn_W
     scale: -1 # reverse direction
@@ -573,9 +573,9 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Sonnenbatterie Eco/10 (PV Meter/ HTTP)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: http
+    source: http
     uri: http://192.0.2.2:8080/api/v1/status
     jq: .Production_W
 ```
@@ -611,9 +611,9 @@ If you want to contribute configurations to this repository please open a Pull R
 #### vzlogger (HTTP)
 
 ```yaml
-- type: default
+- type: custom
   power: # power reading
-    type: http # use http plugin
+    source: http # use http plugin
     uri: http://demo.volkszaehler.org/api/data/<uuid>.json?from=now
     jq: .data.tuples[0][1] # parse response json
 ```
@@ -622,9 +622,9 @@ If you want to contribute configurations to this repository please open a Pull R
 #### vzlogger (Push Server/ Websocket)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: ws # use websocket plugin
+    source: ws # use websocket plugin
     uri: ws://192.0.2.2:8082/socket
     jq: .data | select(.uuid=="<uuid>") .tuples[0][1] # parse response json
     timeout: 30s
@@ -635,14 +635,14 @@ If you want to contribute configurations to this repository please open a Pull R
 #### vzlogger (split import/export channels)
 
 ```yaml
-- type: default
+- type: custom
   power:
-    type: calc # use calc plugin
+    source: calc # use calc plugin
     add:
-    - type: http # import channel
+    - source: http # import channel
       uri: http://demo.volkszaehler.org/api/data/<import-uuid>.json?from=now
       jq: .data.tuples[0][1] # parse response json
-    - type: http # export channel
+    - source: http # export channel
       uri: http://demo.volkszaehler.org/api/data/<export-uuid>.json?from=now
       jq: .data.tuples[0][1] # parse response json
       scale: -1 # export must result in negative values
@@ -692,18 +692,18 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Generic
 
 ```yaml
-- type: default
+- type: custom
   status: # charger status A..F
-    type: ...
+    source: ...
     # ...
   enabled: # charger enabled state (true/false or 0/1)
-    type: ...
+    source: ...
     # ...
   enable: # set charger enabled state
-    type: ...
+    source: ...
     # ...
   maxcurrent: # set charger max current
-    type: ...
+    source: ...
     # ...
 ```
 
@@ -711,18 +711,18 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Generic (MQTT)
 
 ```yaml
-- type: default
+- type: custom
   status: # charger status A..F
-    type: mqtt
+    source: mqtt
     topic: some/topic1
   enabled: # charger enabled state (true/false or 0/1)
-    type: mqtt
+    source: mqtt
     topic: some/topic2
   enable: # set charger enabled state
-    type: script
+    source: script
     cmd: /bin/sh -c "echo ${enable}"
   maxcurrent: # set charger max current
-    type: script
+    source: script
     cmd: /bin/sh -c "echo ${maxcurrent}"
 ```
 
@@ -747,9 +747,9 @@ If you want to contribute configurations to this repository please open a Pull R
 #### i-CHARGE CION (Modbus RTU-over-TCP)
 
 ```yaml
-- type: default
+- type: custom
   status:
-    type: modbus
+    source: modbus
     uri: 192.0.2.2:502
     rtu: true # Modbus over TCP
     id: 1
@@ -758,7 +758,7 @@ If you want to contribute configurations to this repository please open a Pull R
         type: holding
         decode: uint16
   enabled:
-    type: modbus
+    source: modbus
     uri: 192.0.2.2:502
     rtu: true # Modbus over TCP
     id: 1 
@@ -767,7 +767,7 @@ If you want to contribute configurations to this repository please open a Pull R
       type: holding
       decode: uint16
   enable:
-    type: modbus
+    source: modbus
     uri: 192.0.2.2:502
     rtu: true # Modbus over TCP
     id: 1
@@ -776,7 +776,7 @@ If you want to contribute configurations to this repository please open a Pull R
       type: writesingle
       decode: uint16
   maxcurrent:
-    type: modbus
+    source: modbus
     uri: 192.0.2.2:502
     rtu: true # Modbus over TCP
     id: 1
@@ -960,11 +960,11 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Generic
 
 ```yaml
-- type: default
+- type: custom
   title: Mein Auto # display name for UI
   capacity: 50 # kWh
   charge:
-    type: ...
+    source: ...
     # ...
 ```
 
@@ -972,11 +972,11 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Generic (Script)
 
 ```yaml
-- type: default
+- type: custom
   title: Auto # display name for UI
   capacity: 50 # kWh
   charge:
-    type: script # use script plugin
+    source: script # use script plugin
     cmd: /bin/sh -c "echo 50" # actual command
     timeout: 3s # kill script after 3 seconds
   cache: 5m # cache duration
@@ -986,11 +986,11 @@ If you want to contribute configurations to this repository please open a Pull R
 #### Generic EV without SoC (Javascript)
 
 ```yaml
-- type: default
+- type: custom
   title: My electric vehicle # display name for UI
   capacity: 10 # kWh
   charge:
-    type: js
+    source: js
     script: 95 // vehicle SoC in %
 ```
 

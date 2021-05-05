@@ -7,12 +7,12 @@ import (
 func init() {
 	template := registry.Template{
 		Class:  "vehicle",
-		Type:   "default",
+		Type:   "custom",
 		Name:   "Generic",
 		Sample: `title: Mein Auto # display name for UI
 capacity: 50 # kWh
 charge:
-  type: ...
+  source: ...
   # ...`,
 	}
 

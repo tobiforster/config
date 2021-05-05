@@ -7,17 +7,17 @@ import (
 func init() {
 	template := registry.Template{
 		Class:  "meter",
-		Type:   "default",
+		Type:   "custom",
 		Name:   "Fronius Symo GEN24 Plus (PV Meter)",
 		Sample: `power:
-  type: calc
+  source: calc
   add:
-  - type: modbus
+  - source: modbus
     model: sunspec
     uri: 192.0.2.2:502
     id: 1
     value: 160:1:DCW # mpp 1 pv
-  - type: modbus
+  - source: modbus
     model: sunspec
     uri: 192.0.2.2:502
     id: 1

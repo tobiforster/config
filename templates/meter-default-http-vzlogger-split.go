@@ -7,15 +7,15 @@ import (
 func init() {
 	template := registry.Template{
 		Class:  "meter",
-		Type:   "default",
+		Type:   "custom",
 		Name:   "vzlogger (split import/export channels)",
 		Sample: `power:
-  type: calc # use calc plugin
+  source: calc # use calc plugin
   add:
-  - type: http # import channel
+  - source: http # import channel
     uri: http://demo.volkszaehler.org/api/data/<import-uuid>.json?from=now
     jq: .data.tuples[0][1] # parse response json
-  - type: http # export channel
+  - source: http # export channel
     uri: http://demo.volkszaehler.org/api/data/<export-uuid>.json?from=now
     jq: .data.tuples[0][1] # parse response json
     scale: -1 # export must result in negative values`,
