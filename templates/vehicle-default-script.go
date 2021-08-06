@@ -15,6 +15,14 @@ charge:
   source: script # use script plugin
   cmd: /bin/sh -c "echo 50" # actual command
   timeout: 3s # kill script after 3 seconds
+status: # optional
+  source: script # use script plugin
+  cmd: /bin/sh -c "echo B" # actual command 
+  timeout: 3s # kill script after 3 seconds
+range: # optional
+  source: script # use script plugin
+  cmd: /bin/sh -c "echo 123" # actual command
+  timeout: 3s # kill script after 3 seconds
 cache: 5m # cache duration`,
 	}
 

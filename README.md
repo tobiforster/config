@@ -87,6 +87,7 @@ If you want to contribute configurations to this repository please open a Pull R
 
 - [Audi (eTron etc)](#vehicle-audi-etron-etc)
 - [BMW (i3)](#vehicle-bmw-i3)
+- [evNotify (https://evnotify.de/)](#vehicle-evnotify-https--evnotify-de)
 - [Ford (Kuga, Mustang, etc)](#vehicle-ford-kuga-mustang-etc)
 - [Generic](#vehicle-generic)
 - [Generic (Script)](#vehicle-generic-script)
@@ -955,6 +956,21 @@ If you want to contribute configurations to this repository please open a Pull R
   vin: WBMW... # optional
 ```
 
+<a id="vehicle-evnotify-https--evnotify-de"></a>
+#### evNotify (https://evnotify.de/)
+
+```yaml
+- type: custom
+  title: My Car # display name for UI
+  capacity: 39 # kWh
+  charge:
+    type: http
+    uri: https://app.evnotify.de/soc?akey=AKEY&token=1234567890abcdef # evNotify Server + AKEY
+    method: GET
+    jq: .soc_display
+  cache: 5m # cache duration
+```
+
 <a id="vehicle-ford-kuga-mustang-etc"></a>
 #### Ford (Kuga, Mustang, etc)
 
@@ -989,6 +1005,14 @@ If you want to contribute configurations to this repository please open a Pull R
   charge:
     source: script # use script plugin
     cmd: /bin/sh -c "echo 50" # actual command
+    timeout: 3s # kill script after 3 seconds
+  status: # optional
+    source: script # use script plugin
+    cmd: /bin/sh -c "echo B" # actual command 
+    timeout: 3s # kill script after 3 seconds
+  range: # optional
+    source: script # use script plugin
+    cmd: /bin/sh -c "echo 123" # actual command
     timeout: 3s # kill script after 3 seconds
   cache: 5m # cache duration
 ```
