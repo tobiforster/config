@@ -68,11 +68,14 @@ If you want to contribute configurations to this repository please open a Pull R
 - [SMA Sunny Home Manager / Energy Meter (Speedwire)](#meter-sma-sunny-home-manager--energy-meter-speedwire)
 - [SMA Sunny Island / Sunny Boy Storage (Battery Meter)](#meter-sma-sunny-island--sunny-boy-storage-battery-meter)
 - [SMA SunnyBoy / TriPower / other PV-inverter (PV Meter)](#meter-sma-sunnyboy--tripower--other-pv-inverter-pv-meter)
-- [SolarEdge (Grid Meter)](#meter-solaredge-grid-meter)
+- [SolarEdge Energy Meter via inverter (Grid Meter)](#meter-solaredge-energy-meter-via-inverter-grid-meter)
 - [SolarEdge Hybrid Inverter (PV Meter)](#meter-solaredge-hybrid-inverter-pv-meter)
 - [SolarEdge StorEdge (Battery Meter)](#meter-solaredge-storedge-battery-meter)
 - [Solarlog (Grid Meter)](#meter-solarlog-grid-meter)
 - [Solarlog (PV Meter)](#meter-solarlog-pv-meter)
+- [Solarwatt MyReserve (Battery Meter/ HTTP)](#meter-solarwatt-myreserve-battery-meter-http)
+- [Solarwatt MyReserve (Grid Meter/ HTTP)](#meter-solarwatt-myreserve-grid-meter-http)
+- [Solarwatt MyReserve (PV Meter/ HTTP)](#meter-solarwatt-myreserve-pv-meter-http)
 - [Sonnenbatterie Eco/10 (Battery Meter/ HTTP)](#meter-sonnenbatterie-eco-10-battery-meter-http)
 - [Sonnenbatterie Eco/10 (Grid Meter/ HTTP)](#meter-sonnenbatterie-eco-10-grid-meter-http)
 - [Sonnenbatterie Eco/10 (PV Meter/ HTTP)](#meter-sonnenbatterie-eco-10-pv-meter-http)
@@ -355,7 +358,7 @@ If you want to contribute configurations to this repository please open a Pull R
     register: # manual non-sunspec register configuration
       address: 252 # (see ba_kostal_interface_modbus-tcp_sunspec.pdf)
       type: holding
-      decode: float32s # swapped float encoding
+      decode: float32
 ```
 
 <a id="meter-kostal-hybrid-inverter-battery-meter"></a>
@@ -452,19 +455,18 @@ If you want to contribute configurations to this repository please open a Pull R
   id: 126
 ```
 
-<a id="meter-solaredge-grid-meter"></a>
-#### SolarEdge (Grid Meter)
+<a id="meter-solaredge-energy-meter-via-inverter-grid-meter"></a>
+#### SolarEdge Energy Meter via inverter (Grid Meter)
 
 ```yaml
 - type: custom
   power:
     source: modbus
+    model: sunspec
     uri: 192.0.2.2:502 # Port 502 (SetApp) or 1502 (LCD)
     id: 1
-    register:
-      address: 40206 # Meter 1 Total Real Power (sum of active phases)
-      type: holding
-      decode: int16
+    subdevice: 1 # Metering device
+    value: 203:W
     scale: -1
 ```
 
@@ -542,6 +544,43 @@ If you want to contribute configurations to this repository please open a Pull R
       address: 3502
       type: input
       decode: uint32s
+```
+
+<a id="meter-solarwatt-myreserve-battery-meter-http"></a>
+#### Solarwatt MyReserve (Battery Meter/ HTTP)
+
+```yaml
+- type: custom
+  power:
+    source: http
+    uri: http://192.0.2.2/rest/kiwigrid/wizard/devices # EnergyManager
+    jq: .result.items[] | select(.deviceModel[].deviceClass == "com.kiwigrid.devices.location.Location" ) | .tagValues.PowerConsumedFromStorage.value - .tagValues.PowerBuffered.value
+  soc:
+    source: http
+    uri: http://192.0.2.2/rest/kiwigrid/wizard/devices # EnergyManager
+    jq: .result.items[] | select(.deviceModel[].deviceClass == "com.kiwigrid.devices.solarwatt.MyReserve") | .tagValues.StateOfCharge.value
+```
+
+<a id="meter-solarwatt-myreserve-grid-meter-http"></a>
+#### Solarwatt MyReserve (Grid Meter/ HTTP)
+
+```yaml
+- type: custom
+  power:
+    source: http
+    uri: http://192.0.2.2/rest/kiwigrid/wizard/devices # EnergyManager
+    jq: .result.items[] | select(.deviceModel[].deviceClass == "com.kiwigrid.devices.location.Location" ) | .tagValues.PowerConsumedFromGrid.value - .tagValues.PowerOut.value
+```
+
+<a id="meter-solarwatt-myreserve-pv-meter-http"></a>
+#### Solarwatt MyReserve (PV Meter/ HTTP)
+
+```yaml
+- type: custom
+  power:
+    source: http
+    uri: http://192.0.2.2/rest/kiwigrid/wizard/devices # EnergyManager
+    jq: .result.items[] | select(.deviceModel[].deviceClass == "com.kiwigrid.devices.location.Location" ) | .tagValues.PowerProduced.value
 ```
 
 <a id="meter-sonnenbatterie-eco-10-battery-meter-http"></a>

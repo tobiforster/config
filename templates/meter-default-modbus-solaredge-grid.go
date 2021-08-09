@@ -8,15 +8,14 @@ func init() {
 	template := registry.Template{
 		Class:  "meter",
 		Type:   "custom",
-		Name:   "SolarEdge (Grid Meter)",
+		Name:   "SolarEdge Energy Meter via inverter (Grid Meter)",
 		Sample: `power:
   source: modbus
+  model: sunspec
   uri: 192.0.2.2:502 # Port 502 (SetApp) or 1502 (LCD)
   id: 1
-  register:
-    address: 40206 # Meter 1 Total Real Power (sum of active phases)
-    type: holding
-    decode: int16
+  subdevice: 1 # Metering device
+  value: 203:W
   scale: -1`,
 	}
 
