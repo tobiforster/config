@@ -12,7 +12,7 @@ func init() {
 		Sample: `model: sunspec
 uri: 192.0.2.2:502
 id: 200
-power: 213:W # sunspec meter`,
+power: 213:W # sunspec model 203 meter`,
 	}
 
 	registry.Add(template)

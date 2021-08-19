@@ -13,7 +13,7 @@ func init() {
 capacity: 4 # kWh
 user: xxxxxxx # NIU app user
 password: xxxxxx # NIU app password
-serial: NXXXXXXXXXXXXXXX # NIU E-Scooter serial number like shown in app `,
+serial: NXXXXXXXXXXXXXXX # NIU E-Scooter serial number like shown in app`,
 	}
 
 	registry.Add(template)

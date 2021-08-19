@@ -1,5 +1,5 @@
 type: discovergy
-name: Discovergy
+name: Discovergy Metering Service (Cloud)
 sample: |
   user: demo@discovergy.com 
   password: demo # password 

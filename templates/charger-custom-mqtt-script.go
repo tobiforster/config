@@ -8,17 +8,17 @@ func init() {
 	template := registry.Template{
 		Class:  "charger",
 		Type:   "custom",
-		Name:   "Generic (MQTT)",
-		Sample: `status: # charger status A..F
+		Name:   "Generic (MQTT/Script)",
+		Sample: `status: # charger status A..F (return value: A=disconnected, B=connected, C=charging)
   source: mqtt
   topic: some/topic1
-enabled: # charger enabled state (true/false or 0/1)
+enabled: # charger enabled state (return value: true/false or 0/1)
   source: mqtt
   topic: some/topic2
 enable: # set charger enabled state
   source: script
   cmd: /bin/sh -c "echo ${enable}"
-maxcurrent: # set charger max current
+maxcurrent: # set charger max current (unit: ampere)
   source: script
   cmd: /bin/sh -c "echo ${maxcurrent}"`,
 	}

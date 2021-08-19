@@ -16,12 +16,13 @@ If you want to contribute configurations to this repository please open a Pull R
 
 ## Chargers
 
+- [Easee Home (Cloud API)](#charger-easee-home-cloud-api)
 - [EVSE DIN (Modbus RTU)](#charger-evse-din-modbus-rtu)
 - [EVSE DIN (Modbus/TCP)](#charger-evse-din-modbus-tcp)
 - [EVSE-Wifi](#charger-evse-wifi)
 - [FritzDECT](#charger-fritzdect)
 - [Generic](#charger-generic)
-- [Generic (MQTT)](#charger-generic-mqtt)
+- [Generic (MQTT/Script)](#charger-generic-mqtt-script)
 - [go-eCharger](#charger-go-echarger)
 - [go-eCharger (Cloud)](#charger-go-echarger-cloud)
 - [i-CHARGE CION (Modbus RTU-over-TCP)](#charger-i-charge-cion-modbus-rtu-over-tcp)
@@ -38,11 +39,11 @@ If you want to contribute configurations to this repository please open a Pull R
 - [TinkerForge WARP Charger](#charger-tinkerforge-warp-charger)
 - [TP-LINK Smart Plug](#charger-tp-link-smart-plug)
 - [Wallbe (Eco, Pro)](#charger-wallbe-eco-pro)
-- [Wallbe (pre 2019 EV-CC-AC1 controller)](#charger-wallbe-pre-2019-ev-cc-ac1-controller)
+- [Wallbe (pre 2019)](#charger-wallbe-pre-2019)
 
 ## Meters
 
-- [Discovergy](#meter-discovergy)
+- [Discovergy Metering Service (Cloud)](#meter-discovergy-metering-service-cloud)
 - [E3DC (Battery Meter)](#meter-e3dc-battery-meter)
 - [E3DC (Grid Meter)](#meter-e3dc-grid-meter)
 - [E3DC (PV Meter)](#meter-e3dc-pv-meter)
@@ -65,6 +66,13 @@ If you want to contribute configurations to this repository please open a Pull R
 - [Kostal Smart Energy Meter (Grid Meter)](#meter-kostal-smart-energy-meter-grid-meter)
 - [Multiple DC MPP strings combined (PV Meter)](#meter-multiple-dc-mpp-strings-combined-pv-meter)
 - [Multiple PV inverters combined (PV Meter)](#meter-multiple-pv-inverters-combined-pv-meter)
+- [RCT Power Storage (Battery)](#meter-rct-power-storage-battery)
+- [RCT Power Storage (Grid)](#meter-rct-power-storage-grid)
+- [RCT Power Storage (PV)](#meter-rct-power-storage-pv)
+- [SENEC.Home (Battery)](#meter-senec-home-battery)
+- [SENEC.Home (Grid)](#meter-senec-home-grid)
+- [SENEC.Home (PV)](#meter-senec-home-pv)
+- [Shelly 3EM (HTTP)](#meter-shelly-3em-http)
 - [SMA Sunny Home Manager / Energy Meter (Speedwire)](#meter-sma-sunny-home-manager--energy-meter-speedwire)
 - [SMA Sunny Island / Sunny Boy Storage (Battery Meter)](#meter-sma-sunny-island--sunny-boy-storage-battery-meter)
 - [SMA SunnyBoy / TriPower / other PV-inverter (PV Meter)](#meter-sma-sunnyboy--tripower--other-pv-inverter-pv-meter)
@@ -79,6 +87,7 @@ If you want to contribute configurations to this repository please open a Pull R
 - [Sonnenbatterie Eco/10 (Battery Meter/ HTTP)](#meter-sonnenbatterie-eco-10-battery-meter-http)
 - [Sonnenbatterie Eco/10 (Grid Meter/ HTTP)](#meter-sonnenbatterie-eco-10-grid-meter-http)
 - [Sonnenbatterie Eco/10 (PV Meter/ HTTP)](#meter-sonnenbatterie-eco-10-pv-meter-http)
+- [Tasmota (HTTP)](#meter-tasmota-http)
 - [Tesla Powerwall (Battery Meter)](#meter-tesla-powerwall-battery-meter)
 - [Tesla Powerwall (Grid Meter)](#meter-tesla-powerwall-grid-meter)
 - [Tesla Powerwall (PV Meter)](#meter-tesla-powerwall-pv-meter)
@@ -90,7 +99,8 @@ If you want to contribute configurations to this repository please open a Pull R
 
 - [Audi (eTron etc)](#vehicle-audi-etron-etc)
 - [BMW (i3)](#vehicle-bmw-i3)
-- [evNotify (https://evnotify.de/)](#vehicle-evnotify-https--evnotify-de)
+- [Citroen](#vehicle-citroen)
+- [evNotify (HTTP)](#vehicle-evnotify-http)
 - [Ford (Kuga, Mustang, etc)](#vehicle-ford-kuga-mustang-etc)
 - [Generic](#vehicle-generic)
 - [Generic (Script)](#vehicle-generic-script)
@@ -99,7 +109,9 @@ If you want to contribute configurations to this repository please open a Pull R
 - [Kia (e-Niro, e-Soul, etc)](#vehicle-kia-e-niro-e-soul-etc)
 - [Nissan (Leaf)](#vehicle-nissan-leaf)
 - [NIU E-Scooter](#vehicle-niu-e-scooter)
-- [OVMS (Twizzy, Smart, ...)](#vehicle-ovms-twizzy-smart)
+- [Opel](#vehicle-opel)
+- [OVMS](#vehicle-ovms)
+- [Peugeot](#vehicle-peugeot)
 - [Porsche](#vehicle-porsche)
 - [Renault (Zoe)](#vehicle-renault-zoe)
 - [Tesla](#vehicle-tesla)
@@ -111,8 +123,8 @@ If you want to contribute configurations to this repository please open a Pull R
 ### Meters
 
 
-<a id="meter-discovergy"></a>
-#### Discovergy
+<a id="meter-discovergy-metering-service-cloud"></a>
+#### Discovergy Metering Service (Cloud)
 
 ```yaml
 - type: discovergy
@@ -180,7 +192,7 @@ If you want to contribute configurations to this repository please open a Pull R
 
 ```yaml
 - type: modbus
-  model: sdm
+  model: sdm # specific non-sunspec meter
   device: /dev/ttyUSB0 # serial port
   baudrate: 9600
   comset: 8N1
@@ -193,7 +205,7 @@ If you want to contribute configurations to this repository please open a Pull R
 
 ```yaml
 - type: modbus
-  model: sdm
+  model: sdm # specific non-sunspec meter
   uri: 192.0.2.2:502
   rtu: true # serial modbus rtu (rs485) device connected using simple ethernet adapter
   id: 1
@@ -272,7 +284,7 @@ If you want to contribute configurations to this repository please open a Pull R
   model: sunspec
   uri: 192.0.2.2:502
   id: 200
-  power: 213:W # sunspec meter
+  power: 213:W # sunspec model 203 meter
 ```
 
 <a id="meter-fronius-symo-gen24-plus-pv-meter"></a>
@@ -322,10 +334,9 @@ If you want to contribute configurations to this repository please open a Pull R
 
 ```yaml
 - type: modbus
-  model: sunspec
   uri: 192.0.2.2:502
   id: 1
-  power: 203:W # sunspec meter
+  power: 203:W # sunspec model 203 meter
 ```
 
 <a id="meter-generic-sunspec-battery-inverter-battery-meter"></a>
@@ -359,7 +370,7 @@ If you want to contribute configurations to this repository please open a Pull R
     register: # manual non-sunspec register configuration
       address: 252 # (see ba_kostal_interface_modbus-tcp_sunspec.pdf)
       type: holding
-      decode: float32
+      decode: float32s # may be float32 on specific firmware/devices
 ```
 
 <a id="meter-kostal-hybrid-inverter-battery-meter"></a>
@@ -368,9 +379,9 @@ If you want to contribute configurations to this repository please open a Pull R
 ```yaml
 - type: modbus
   uri: 192.0.2.2:1502
-  id: 71
-  power: 802:W
-  soc: 802:SoC
+  id: 71 # kostal default sunspec modbus id
+  power: 802:W # sunspec model 802 battery
+  soc: 802:SoC # sunspec model 802 battery
 ```
 
 <a id="meter-kostal-inverter-pv-meter"></a>
@@ -379,7 +390,7 @@ If you want to contribute configurations to this repository please open a Pull R
 ```yaml
 - type: modbus
   uri: 192.0.2.2:1502
-  id: 71
+  id: 71 # kostal default sunspec modbus id
 ```
 
 <a id="meter-kostal-smart-energy-meter-grid-meter"></a>
@@ -388,7 +399,7 @@ If you want to contribute configurations to this repository please open a Pull R
 ```yaml
 - type: modbus
   uri: 192.0.2.2:502
-  id: 71
+  id: 71 # kostal default sunspec modbus id
 ```
 
 <a id="meter-multiple-dc-mpp-strings-combined-pv-meter"></a>
@@ -429,6 +440,92 @@ If you want to contribute configurations to this repository please open a Pull R
       id: 1
 ```
 
+<a id="meter-rct-power-storage-battery"></a>
+#### RCT Power Storage (Battery)
+
+```yaml
+- type: custom
+  power:
+    source: script
+    cmd: /bin/bash -c "rctclient read-value --host 192.0.2.2 --name g_sync.p_acc_lp"
+    timeout: 5s
+  soc:
+    source: script
+    cmd: /bin/bash -c "echo $(rctclient read-value --host 192.0.2.2 --name battery.soc) \* 100. | bc -l"
+    timeout: 5s
+```
+
+<a id="meter-rct-power-storage-grid"></a>
+#### RCT Power Storage (Grid)
+
+```yaml
+- type: custom
+  power:
+    source: script
+    cmd: /bin/bash -c "rctclient read-value --host 192.0.2.2 --name g_sync.p_ac_grid_sum_lp"
+    timeout: 5s
+```
+
+<a id="meter-rct-power-storage-pv"></a>
+#### RCT Power Storage (PV)
+
+```yaml
+- type: custom
+  power:
+    source: script
+    cmd: /bin/bash -c "echo $(rctclient read-value --host 192.0.2.2 --name g_sync.p_ac_load_sum_lp) \- $(rctclient read-value --host 192.0.2.2 --name g_sync.p_acc_lp) \- $(rctclient read-value --host 192.0.2.2 --name g_sync.p_ac_grid_sum_lp) | bc -l"
+    timeout: 5s
+```
+
+<a id="meter-senec-home-battery"></a>
+#### SENEC.Home (Battery)
+
+```yaml
+- type: custom
+  power:
+    source: script
+    cmd: /bin/bash -c "curl -d '{\"ENERGY\":{\"GUI_BAT_DATA_POWER\":\"\"}}' -H \"Content-Type: application/json\" -X POST http://192.0.2.2/lala.cgi | jq .ENERGY.GUI_BAT_DATA_POWER | python3 -c 'import struct;print(struct.unpack(\"!f\",bytes.fromhex(input()[3:]))[0])'"
+    timeout: 5s
+    scale: -1
+  soc:
+    source: script
+    cmd: /bin/bash -c "curl -d '{\"ENERGY\":{\"GUI_BAT_DATA_FUEL_CHARGE\":\"\"}}' -H \"Content-Type: application/json\" -X POST http://192.0.2.2/lala.cgi | jq .ENERGY.GUI_BAT_DATA_FUEL_CHARGE | python3 -c 'import struct;print(struct.unpack(\"!f\",bytes.fromhex(input()[3:]))[0])'"
+    timeout: 5s
+```
+
+<a id="meter-senec-home-grid"></a>
+#### SENEC.Home (Grid)
+
+```yaml
+- type: custom
+  power:
+    cmd: /bin/bash -c "curl -d '{\"ENERGY\":{\"GUI_GRID_POW\":\"\"}}' -H \"Content-Type: application/json\" -X POST http://192.0.2.2/lala.cgi | jq .ENERGY.GUI_GRID_POW | python3 -c 'import struct;print(struct.unpack(\"!f\",bytes.fromhex(input()[3:]))[0])'"
+    timeout: 5s
+    scale: -1
+```
+
+<a id="meter-senec-home-pv"></a>
+#### SENEC.Home (PV)
+
+```yaml
+- type: custom
+  power:
+    source: script
+    cmd: /bin/bash -c "curl -d '{\"ENERGY\":{\"GUI_INVERTER_POWER\":\"\"}}' -H \"Content-Type: application/json\" -X POST http://192.0.2.2/lala.cgi | jq .ENERGY.GUI_INVERTER_POWER | python3 -c 'import struct;print(struct.unpack(\"!f\",bytes.fromhex(input()[3:]))[0])'"
+    timeout: 5s
+```
+
+<a id="meter-shelly-3em-http"></a>
+#### Shelly 3EM (HTTP)
+
+```yaml
+- type: custom
+  power: # power reading
+    source: http
+    uri: http://192.0.2.2/emeter/0
+    jq: .power
+```
+
 <a id="meter-sma-sunny-home-manager--energy-meter-speedwire"></a>
 #### SMA Sunny Home Manager / Energy Meter (Speedwire)
 
@@ -443,7 +540,7 @@ If you want to contribute configurations to this repository please open a Pull R
 ```yaml
 - type: modbus
   uri: 192.0.2.2:502
-  id: 126
+  id: 126 # sma default sunspec modbus id
   soc: ChargeState
 ```
 
@@ -453,7 +550,7 @@ If you want to contribute configurations to this repository please open a Pull R
 ```yaml
 - type: modbus
   uri: 192.0.2.2:502
-  id: 126
+  id: 126 # sma default sunspec modbus id
 ```
 
 <a id="meter-solaredge-energy-meter-via-inverter-grid-meter"></a>
@@ -622,6 +719,21 @@ If you want to contribute configurations to this repository please open a Pull R
     jq: .Production_W
 ```
 
+<a id="meter-tasmota-http"></a>
+#### Tasmota (HTTP)
+
+```yaml
+- type: custom
+  power: # power reading (W)
+    source: http
+    uri: http://192.0.2.2/cm?cmnd=Status%208
+    jq: .StatusSNS.ENERGY.Power
+  energy: # energy reading (Wh), for chargemeter usage only
+    source: http
+    uri: http://192.0.2.2/cm?cmnd=Status%208
+    jq: .StatusSNS.ENERGY.Total * 1000
+```
+
 <a id="meter-tesla-powerwall-battery-meter"></a>
 #### Tesla Powerwall (Battery Meter)
 
@@ -694,6 +806,17 @@ If you want to contribute configurations to this repository please open a Pull R
 ### Chargers
 
 
+<a id="charger-easee-home-cloud-api"></a>
+#### Easee Home (Cloud API)
+
+```yaml
+- type: easee
+  user: foo@example.org
+  password: *****
+  charger: EH______
+  cache: 10s
+```
+
 <a id="charger-evse-din-modbus-rtu"></a>
 #### EVSE DIN (Modbus RTU)
 
@@ -749,21 +872,21 @@ If you want to contribute configurations to this repository please open a Pull R
     # ...
 ```
 
-<a id="charger-generic-mqtt"></a>
-#### Generic (MQTT)
+<a id="charger-generic-mqtt-script"></a>
+#### Generic (MQTT/Script)
 
 ```yaml
 - type: custom
-  status: # charger status A..F
+  status: # charger status A..F (return value: A=disconnected, B=connected, C=charging)
     source: mqtt
     topic: some/topic1
-  enabled: # charger enabled state (true/false or 0/1)
+  enabled: # charger enabled state (return value: true/false or 0/1)
     source: mqtt
     topic: some/topic2
   enable: # set charger enabled state
     source: script
     cmd: /bin/sh -c "echo ${enable}"
-  maxcurrent: # set charger max current
+  maxcurrent: # set charger max current (unit: ampere)
     source: script
     cmd: /bin/sh -c "echo ${maxcurrent}"
 ```
@@ -881,10 +1004,10 @@ If you want to contribute configurations to this repository please open a Pull R
 ```yaml
 - type: phoenix-em-eth
   uri: 192.168.0.8:502
-  meter:
-    power: true    # charge meter connected to controller
-    energy: true   # charge meter connected to controller
-    currents: true # charge meter connected to controller
+  meter: # only if a charge meter is connected to the controller
+    power: true
+    energy: true
+    currents: true
 ```
 
 <a id="charger-phoenix-ev-eth-controller-modbus-tcp"></a>
@@ -893,10 +1016,10 @@ If you want to contribute configurations to this repository please open a Pull R
 ```yaml
 - type: phoenix-ev-eth
   uri: 192.168.0.8:502
-  meter:
-    power: true    # charge meter connected to controller
-    energy: true   # charge meter connected to controller
-    currents: true # charge meter connected to controller
+  meter: # only if a charge meter is connected to the controller
+    power: true
+    energy: true
+    currents: true
 ```
 
 <a id="charger-phoenix-ev-ser-controller-modbus-rtu"></a>
@@ -957,15 +1080,23 @@ If you want to contribute configurations to this repository please open a Pull R
 ```yaml
 - type: wallbe
   uri: 192.168.0.8:502 # TCP ModBus address
+  meter: # only if a charge meter is connected to the controller
+    power: true
+    energy: true
+    currents: true
 ```
 
-<a id="charger-wallbe-pre-2019-ev-cc-ac1-controller"></a>
-#### Wallbe (pre 2019 EV-CC-AC1 controller)
+<a id="charger-wallbe-pre-2019"></a>
+#### Wallbe (pre 2019)
 
 ```yaml
 - type: wallbe
   uri: 192.168.0.8:502 # TCP ModBus address
-  legacy: true # enable for older Wallbes with Phoenix EV-CC-AC1-M3-CBC-RCM controller
+  legacy: true # enable for older Wallbe devices (old controller firmware)
+  meter: # only if a charge meter is connected to the controller
+    power: true
+    energy: true
+    currents: true
 ```
 
 
@@ -996,13 +1127,25 @@ If you want to contribute configurations to this repository please open a Pull R
   vin: WBMW... # optional
 ```
 
-<a id="vehicle-evnotify-https--evnotify-de"></a>
-#### evNotify (https://evnotify.de/)
+<a id="vehicle-citroen"></a>
+#### Citroen
+
+```yaml
+- type: citroen
+  title: e-C4 # display name for UI
+  capacity: 50 # kWh
+  user: user@example.com
+  password: xxx
+  vin: # optional
+```
+
+<a id="vehicle-evnotify-http"></a>
+#### evNotify (HTTP)
 
 ```yaml
 - type: custom
   title: My Car # display name for UI
-  capacity: 39 # kWh
+  capacity: 64 # kWh
   charge:
     type: http
     uri: https://app.evnotify.de/soc?akey=AKEY&token=1234567890abcdef # evNotify Server + AKEY
@@ -1111,20 +1254,44 @@ If you want to contribute configurations to this repository please open a Pull R
   capacity: 4 # kWh
   user: xxxxxxx # NIU app user
   password: xxxxxx # NIU app password
-  serial: NXXXXXXXXXXXXXXX # NIU E-Scooter serial number like shown in app 
+  serial: NXXXXXXXXXXXXXXX # NIU E-Scooter serial number like shown in app
 ```
 
-<a id="vehicle-ovms-twizzy-smart"></a>
-#### OVMS (Twizzy, Smart, ...)
+<a id="vehicle-opel"></a>
+#### Opel
+
+```yaml
+- type: opel
+  title: Corsa-e # display name for UI
+  capacity: 50 # kWh
+  user: user@example.com
+  password: xxx
+  vin: # optional
+```
+
+<a id="vehicle-ovms"></a>
+#### OVMS
 
 ```yaml
 - type: ovms
-  title: Smart ED # display name for UI
-  capacity: 17 # kWh
+  title: Open Vehicle Monitoring System # display name for UI
+  capacity: 12 # kWh
   user: # user server
   password: # password server
   vehicleid: # vehicle id
   server: dexters-web.de # used ovms server [dexters-web.de or api.openvehicles.com]
+```
+
+<a id="vehicle-peugeot"></a>
+#### Peugeot
+
+```yaml
+- type: peugeot
+  title: e-208 # display name for UI
+  capacity: 50 # kWh
+  user: user@example.com
+  password: xxx
+  vin: # optional
 ```
 
 <a id="vehicle-porsche"></a>

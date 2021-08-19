@@ -9,7 +9,7 @@ func init() {
 		Class:  "meter",
 		Type:   "modbus",
 		Name:   "Eastron SDM Modbus Meter (RTU)",
-		Sample: `model: sdm
+		Sample: `model: sdm # specific non-sunspec meter
 device: /dev/ttyUSB0 # serial port
 baudrate: 9600
 comset: 8N1

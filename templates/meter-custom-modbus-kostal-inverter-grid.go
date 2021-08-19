@@ -16,7 +16,7 @@ func init() {
   register: # manual non-sunspec register configuration
     address: 252 # (see ba_kostal_interface_modbus-tcp_sunspec.pdf)
     type: holding
-    decode: float32`,
+    decode: float32s # may be float32 on specific firmware/devices`,
 	}
 
 	registry.Add(template)

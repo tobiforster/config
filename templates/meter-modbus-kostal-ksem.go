@@ -10,7 +10,7 @@ func init() {
 		Type:   "modbus",
 		Name:   "Kostal Smart Energy Meter (Grid Meter)",
 		Sample: `uri: 192.0.2.2:502
-id: 71`,
+id: 71 # kostal default sunspec modbus id`,
 	}
 
 	registry.Add(template)

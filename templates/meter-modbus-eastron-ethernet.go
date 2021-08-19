@@ -9,7 +9,7 @@ func init() {
 		Class:  "meter",
 		Type:   "modbus",
 		Name:   "Eastron SDM Modbus Meter (RTU-over-TCP)",
-		Sample: `model: sdm
+		Sample: `model: sdm # specific non-sunspec meter
 uri: 192.0.2.2:502
 rtu: true # serial modbus rtu (rs485) device connected using simple ethernet adapter
 id: 1

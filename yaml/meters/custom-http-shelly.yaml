@@ -1,0 +1,7 @@
+type: custom
+name: Shelly 3EM (HTTP)
+sample: |
+  power: # power reading
+    source: http
+    uri: http://192.0.2.2/emeter/0
+    jq: .power

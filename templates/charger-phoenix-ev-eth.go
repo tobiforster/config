@@ -10,10 +10,10 @@ func init() {
 		Type:   "phoenix-ev-eth",
 		Name:   "Phoenix EV-ETH Controller (Modbus/TCP)",
 		Sample: `uri: 192.168.0.8:502
-meter:
-  power: true    # charge meter connected to controller
-  energy: true   # charge meter connected to controller
-  currents: true # charge meter connected to controller`,
+meter: # only if a charge meter is connected to the controller
+  power: true
+  energy: true
+  currents: true`,
 	}
 
 	registry.Add(template)

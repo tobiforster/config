@@ -10,9 +10,9 @@ func init() {
 		Type:   "modbus",
 		Name:   "Kostal Hybrid Inverter (Battery Meter)",
 		Sample: `uri: 192.0.2.2:1502
-id: 71
-power: 802:W
-soc: 802:SoC`,
+id: 71 # kostal default sunspec modbus id
+power: 802:W # sunspec model 802 battery
+soc: 802:SoC # sunspec model 802 battery`,
 	}
 
 	registry.Add(template)
