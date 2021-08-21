@@ -22,7 +22,6 @@ If you want to contribute configurations to this repository please open a Pull R
 - [EVSE-Wifi](#charger-evse-wifi)
 - [FritzDECT](#charger-fritzdect)
 - [Generic](#charger-generic)
-- [Generic (MQTT/Script)](#charger-generic-mqtt-script)
 - [go-eCharger](#charger-go-echarger)
 - [go-eCharger (Cloud)](#charger-go-echarger-cloud)
 - [Heidelberg Energy Control (Modbus RTU)](#charger-heidelberg-energy-control-modbus-rtu)
@@ -55,8 +54,7 @@ If you want to contribute configurations to this repository please open a Pull R
 - [Fronius Symo GEN24 Plus (Battery Meter)](#meter-fronius-symo-gen24-plus-battery-meter)
 - [Fronius Symo GEN24 Plus (Grid Meter)](#meter-fronius-symo-gen24-plus-grid-meter)
 - [Fronius Symo GEN24 Plus (PV Meter)](#meter-fronius-symo-gen24-plus-pv-meter)
-- [Generic (MQTT)](#meter-generic-mqtt)
-- [Generic (Script)](#meter-generic-script)
+- [Generic](#meter-generic)
 - [Generic SunSpec 3-phase meter via inverter (Grid Meter)](#meter-generic-sunspec-3-phase-meter-via-inverter-grid-meter)
 - [Generic SunSpec battery inverter (Battery Meter)](#meter-generic-sunspec-battery-inverter-battery-meter)
 - [Generic SunSpec PV inverter (PV Meter)](#meter-generic-sunspec-pv-inverter-pv-meter)
@@ -103,8 +101,6 @@ If you want to contribute configurations to this repository please open a Pull R
 - [evNotify (HTTP)](#vehicle-evnotify-http)
 - [Ford (Kuga, Mustang, etc)](#vehicle-ford-kuga-mustang-etc)
 - [Generic](#vehicle-generic)
-- [Generic (Script)](#vehicle-generic-script)
-- [Generic EV without SoC (Javascript)](#vehicle-generic-ev-without-soc-javascript)
 - [Hyundai (Kona, Ioniq)](#vehicle-hyundai-kona-ioniq)
 - [Kia (e-Niro, e-Soul, etc)](#vehicle-kia-e-niro-e-soul-etc)
 - [Nissan (Leaf)](#vehicle-nissan-leaf)
@@ -307,26 +303,27 @@ If you want to contribute configurations to this repository please open a Pull R
       value: 160:2:DCW # mpp 2 pv
 ```
 
-<a id="meter-generic-mqtt"></a>
-#### Generic (MQTT)
+<a id="meter-generic"></a>
+#### Generic
 
 ```yaml
 - type: custom
-  power: # power reading
-    source: mqtt # use mqtt plugin
-    topic: mbmd/sdm1-1/Power # mqtt topic
-    timeout: 10s # don't use older values
-```
-
-<a id="meter-generic-script"></a>
-#### Generic (Script)
-
-```yaml
-- type: custom
-  power:
-    source: script # use script plugin
-    cmd: /bin/sh -c "echo 0" # actual command
-    timeout: 3s # kill script after 3 seconds
+  power: # power (W)
+    source: # plugin type
+    # ...
+  energy: # optional energy (kWh)
+    source: # plugin type
+    # ...
+  soc: # optional battery soc (%)
+    source: # plugin type
+    # ...
+  currents: # optional currents (A)
+    - source: # L1 plugin type
+      # ...
+    - source: # L2 plugin type
+      # ...
+    - source: # L3 plugin type
+      # ...
 ```
 
 <a id="meter-generic-sunspec-3-phase-meter-via-inverter-grid-meter"></a>
@@ -879,31 +876,12 @@ If you want to contribute configurations to this repository please open a Pull R
   enabled: # charger enabled state (true/false or 0/1)
     source: ...
     # ...
-  enable: # set charger enabled state
+  enable: # set charger enabled state (true/false or 0/1)
     source: ...
     # ...
-  maxcurrent: # set charger max current
+  maxcurrent: # set charger max current (A)
     source: ...
     # ...
-```
-
-<a id="charger-generic-mqtt-script"></a>
-#### Generic (MQTT/Script)
-
-```yaml
-- type: custom
-  status: # charger status A..F (return value: A=disconnected, B=connected, C=charging)
-    source: mqtt
-    topic: some/topic1
-  enabled: # charger enabled state (return value: true/false or 0/1)
-    source: mqtt
-    topic: some/topic2
-  enable: # set charger enabled state
-    source: script
-    cmd: /bin/sh -c "echo ${enable}"
-  maxcurrent: # set charger max current (unit: ampere)
-    source: script
-    cmd: /bin/sh -c "echo ${maxcurrent}"
 ```
 
 <a id="charger-go-echarger"></a>
@@ -1187,44 +1165,17 @@ If you want to contribute configurations to this repository please open a Pull R
 ```yaml
 - type: custom
   title: Mein Auto # display name for UI
-  capacity: 50 # kWh
-  charge:
-    source: ...
+  capacity: 50 # byttery capacity (kWh)
+  charge: # battery soc (%)
+    source: # plugin type
     # ...
-```
-
-<a id="vehicle-generic-script"></a>
-#### Generic (Script)
-
-```yaml
-- type: custom
-  title: Auto # display name for UI
-  capacity: 50 # kWh
-  charge:
-    source: script # use script plugin
-    cmd: /bin/sh -c "echo 50" # actual command
-    timeout: 3s # kill script after 3 seconds
-  status: # optional
-    source: script # use script plugin
-    cmd: /bin/sh -c "echo B" # actual command 
-    timeout: 3s # kill script after 3 seconds
-  range: # optional
-    source: script # use script plugin
-    cmd: /bin/sh -c "echo 123" # actual command
-    timeout: 3s # kill script after 3 seconds
-  cache: 5m # cache duration
-```
-
-<a id="vehicle-generic-ev-without-soc-javascript"></a>
-#### Generic EV without SoC (Javascript)
-
-```yaml
-- type: custom
-  title: My electric vehicle # display name for UI
-  capacity: 10 # kWh
-  charge:
-    source: js
-    script: 95 // vehicle SoC in %
+  status: # optional charge status (A..F)
+    source: # plugin type
+    # ...
+  range: # optional electric range (km)
+    source: # plugin type
+    # ...
+  cache: 5m # optional cache duration
 ```
 
 <a id="vehicle-hyundai-kona-ioniq"></a>

@@ -1,7 +1,0 @@
-type: custom
-name: Generic (Script)
-sample: |
-  power:
-    source: script # use script plugin
-    cmd: /bin/sh -c "echo 0" # actual command
-    timeout: 3s # kill script after 3 seconds

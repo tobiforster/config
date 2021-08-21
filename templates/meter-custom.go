@@ -6,21 +6,25 @@ import (
 
 func init() {
 	template := registry.Template{
-		Class:  "vehicle",
+		Class:  "meter",
 		Type:   "custom",
 		Name:   "Generic",
-		Sample: `title: Mein Auto # display name for UI
-capacity: 50 # byttery capacity (kWh)
-charge: # battery soc (%)
+		Sample: `power: # power (W)
   source: # plugin type
   # ...
-status: # optional charge status (A..F)
+energy: # optional energy (kWh)
   source: # plugin type
   # ...
-range: # optional electric range (km)
+soc: # optional battery soc (%)
   source: # plugin type
   # ...
-cache: 5m # optional cache duration`,
+currents: # optional currents (A)
+  - source: # L1 plugin type
+    # ...
+  - source: # L2 plugin type
+    # ...
+  - source: # L3 plugin type
+    # ...`,
 	}
 
 	registry.Add(template)
