@@ -8,7 +8,7 @@ func init() {
 	template := registry.Template{
 		Class:  "meter",
 		Type:   "custom",
-		Name:   "Solarwatt MyReserve (Grid Meter/ HTTP)",
+		Name:   "Solarwatt MyReserve (Grid Meter)",
 		Sample: `power:
   source: http
   uri: http://192.0.2.2/rest/kiwigrid/wizard/devices # EnergyManager

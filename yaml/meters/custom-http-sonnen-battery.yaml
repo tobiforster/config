@@ -1,5 +1,5 @@
 type: custom
-name: Sonnenbatterie Eco/10 (Battery Meter/ HTTP)
+name: Sonnenbatterie Eco/10 (Battery Meter)
 sample: |
   power:
     source: http

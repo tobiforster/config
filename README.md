@@ -17,8 +17,7 @@ If you want to contribute configurations to this repository please open a Pull R
 ## Chargers
 
 - [Easee Home (Cloud API)](#charger-easee-home-cloud-api)
-- [EVSE DIN (Modbus RTU)](#charger-evse-din-modbus-rtu)
-- [EVSE DIN (Modbus/TCP)](#charger-evse-din-modbus-tcp)
+- [EVSE DIN](#charger-evse-din)
 - [EVSE-Wifi](#charger-evse-wifi)
 - [FritzDECT](#charger-fritzdect)
 - [Generic](#charger-generic)
@@ -31,8 +30,8 @@ If you want to contribute configurations to this repository please open a Pull R
 - [NRGKick BT (Bluetooth)](#charger-nrgkick-bt-bluetooth)
 - [NRGKick Connect](#charger-nrgkick-connect)
 - [openWB (MQTT)](#charger-openwb-mqtt)
-- [Phoenix EM-CP-PP-ETH Controller (Modbus/TCP)](#charger-phoenix-em-cp-pp-eth-controller-modbus-tcp)
-- [Phoenix EV-ETH Controller (Modbus/TCP)](#charger-phoenix-ev-eth-controller-modbus-tcp)
+- [Phoenix EM-CP-PP-ETH Controller (Modbus TCP)](#charger-phoenix-em-cp-pp-eth-controller-modbus-tcp)
+- [Phoenix EV-ETH Controller (Modbus TCP)](#charger-phoenix-ev-eth-controller-modbus-tcp)
 - [Phoenix EV-SER Controller (Modbus RTU)](#charger-phoenix-ev-ser-controller-modbus-rtu)
 - [Shelly](#charger-shelly)
 - [Tasmota](#charger-tasmota)
@@ -46,11 +45,10 @@ If you want to contribute configurations to this repository please open a Pull R
 - [E3DC (Battery Meter)](#meter-e3dc-battery-meter)
 - [E3DC (Grid Meter)](#meter-e3dc-grid-meter)
 - [E3DC (PV Meter)](#meter-e3dc-pv-meter)
-- [Eastron SDM Modbus Meter (RTU)](#meter-eastron-sdm-modbus-meter-rtu)
-- [Eastron SDM Modbus Meter (RTU-over-TCP)](#meter-eastron-sdm-modbus-meter-rtu-over-tcp)
-- [Fronius Solar API V1 (Battery Meter/ HTTP)](#meter-fronius-solar-api-v1-battery-meter-http)
-- [Fronius Solar API V1 (Grid Meter/ HTTP)](#meter-fronius-solar-api-v1-grid-meter-http)
-- [Fronius Solar API V1 (PV Meter/ HTTP)](#meter-fronius-solar-api-v1-pv-meter-http)
+- [Eastron SDM Modbus Meter](#meter-eastron-sdm-modbus-meter)
+- [Fronius Solar API V1 (Battery Meter)](#meter-fronius-solar-api-v1-battery-meter)
+- [Fronius Solar API V1 (Grid Meter)](#meter-fronius-solar-api-v1-grid-meter)
+- [Fronius Solar API V1 (PV Meter)](#meter-fronius-solar-api-v1-pv-meter)
 - [Fronius Symo GEN24 Plus (Battery Meter)](#meter-fronius-symo-gen24-plus-battery-meter)
 - [Fronius Symo GEN24 Plus (Grid Meter)](#meter-fronius-symo-gen24-plus-grid-meter)
 - [Fronius Symo GEN24 Plus (PV Meter)](#meter-fronius-symo-gen24-plus-pv-meter)
@@ -79,18 +77,18 @@ If you want to contribute configurations to this repository please open a Pull R
 - [SolarEdge StorEdge (Battery Meter)](#meter-solaredge-storedge-battery-meter)
 - [Solarlog (Grid Meter)](#meter-solarlog-grid-meter)
 - [Solarlog (PV Meter)](#meter-solarlog-pv-meter)
-- [Solarwatt MyReserve (Battery Meter/ HTTP)](#meter-solarwatt-myreserve-battery-meter-http)
-- [Solarwatt MyReserve (Grid Meter/ HTTP)](#meter-solarwatt-myreserve-grid-meter-http)
-- [Solarwatt MyReserve (PV Meter/ HTTP)](#meter-solarwatt-myreserve-pv-meter-http)
-- [Sonnenbatterie Eco/10 (Battery Meter/ HTTP)](#meter-sonnenbatterie-eco-10-battery-meter-http)
-- [Sonnenbatterie Eco/10 (Grid Meter/ HTTP)](#meter-sonnenbatterie-eco-10-grid-meter-http)
-- [Sonnenbatterie Eco/10 (PV Meter/ HTTP)](#meter-sonnenbatterie-eco-10-pv-meter-http)
+- [Solarwatt MyReserve (Battery Meter)](#meter-solarwatt-myreserve-battery-meter)
+- [Solarwatt MyReserve (Grid Meter)](#meter-solarwatt-myreserve-grid-meter)
+- [Solarwatt MyReserve (PV Meter)](#meter-solarwatt-myreserve-pv-meter)
+- [Sonnenbatterie Eco/10 (Battery Meter)](#meter-sonnenbatterie-eco-10-battery-meter)
+- [Sonnenbatterie Eco/10 (Grid Meter)](#meter-sonnenbatterie-eco-10-grid-meter)
+- [Sonnenbatterie Eco/10 (PV Meter)](#meter-sonnenbatterie-eco-10-pv-meter)
 - [Tasmota (HTTP)](#meter-tasmota-http)
 - [Tesla Powerwall (Battery Meter)](#meter-tesla-powerwall-battery-meter)
 - [Tesla Powerwall (Grid Meter)](#meter-tesla-powerwall-grid-meter)
 - [Tesla Powerwall (PV Meter)](#meter-tesla-powerwall-pv-meter)
 - [vzlogger (HTTP)](#meter-vzlogger-http)
-- [vzlogger (Push Server/ Websocket)](#meter-vzlogger-push-server-websocket)
+- [vzlogger (Push Server)](#meter-vzlogger-push-server)
 - [vzlogger (split import/export channels)](#meter-vzlogger-split-import-export-channels)
 
 ## Vehicles
@@ -183,33 +181,25 @@ If you want to contribute configurations to this repository please open a Pull R
       decode: int32s
 ```
 
-<a id="meter-eastron-sdm-modbus-meter-rtu"></a>
-#### Eastron SDM Modbus Meter (RTU)
+<a id="meter-eastron-sdm-modbus-meter"></a>
+#### Eastron SDM Modbus Meter
 
 ```yaml
 - type: modbus
   model: sdm # specific non-sunspec meter
+  id: 1
+  energy: Sum # only required for charge meter usage
+  # chose either locally attached:
   device: /dev/ttyUSB0 # serial port
   baudrate: 9600
   comset: 8N1
-  id: 1
-  energy: Sum # only required for charge meter usage
-```
-
-<a id="meter-eastron-sdm-modbus-meter-rtu-over-tcp"></a>
-#### Eastron SDM Modbus Meter (RTU-over-TCP)
-
-```yaml
-- type: modbus
-  model: sdm # specific non-sunspec meter
+  # or via TCP:
   uri: 192.0.2.2:502
   rtu: true # serial modbus rtu (rs485) device connected using simple ethernet adapter
-  id: 1
-  energy: Sum # this assignment is only required for charge meter usage
 ```
 
-<a id="meter-fronius-solar-api-v1-battery-meter-http"></a>
-#### Fronius Solar API V1 (Battery Meter/ HTTP)
+<a id="meter-fronius-solar-api-v1-battery-meter"></a>
+#### Fronius Solar API V1 (Battery Meter)
 
 ```yaml
 - type: custom
@@ -223,8 +213,8 @@ If you want to contribute configurations to this repository please open a Pull R
     jq: .Body.Data.Inverters."1".SOC
 ```
 
-<a id="meter-fronius-solar-api-v1-grid-meter-http"></a>
-#### Fronius Solar API V1 (Grid Meter/ HTTP)
+<a id="meter-fronius-solar-api-v1-grid-meter"></a>
+#### Fronius Solar API V1 (Grid Meter)
 
 ```yaml
 - type: custom
@@ -234,8 +224,8 @@ If you want to contribute configurations to this repository please open a Pull R
     jq: if .Body.Data.Site.P_Grid == null then 0 else .Body.Data.Site.P_Grid end
 ```
 
-<a id="meter-fronius-solar-api-v1-pv-meter-http"></a>
-#### Fronius Solar API V1 (PV Meter/ HTTP)
+<a id="meter-fronius-solar-api-v1-pv-meter"></a>
+#### Fronius Solar API V1 (PV Meter)
 
 ```yaml
 - type: custom
@@ -656,8 +646,8 @@ If you want to contribute configurations to this repository please open a Pull R
       decode: uint32s
 ```
 
-<a id="meter-solarwatt-myreserve-battery-meter-http"></a>
-#### Solarwatt MyReserve (Battery Meter/ HTTP)
+<a id="meter-solarwatt-myreserve-battery-meter"></a>
+#### Solarwatt MyReserve (Battery Meter)
 
 ```yaml
 - type: custom
@@ -671,8 +661,8 @@ If you want to contribute configurations to this repository please open a Pull R
     jq: .result.items[] | select(.deviceModel[].deviceClass == "com.kiwigrid.devices.solarwatt.MyReserve") | .tagValues.StateOfCharge.value
 ```
 
-<a id="meter-solarwatt-myreserve-grid-meter-http"></a>
-#### Solarwatt MyReserve (Grid Meter/ HTTP)
+<a id="meter-solarwatt-myreserve-grid-meter"></a>
+#### Solarwatt MyReserve (Grid Meter)
 
 ```yaml
 - type: custom
@@ -682,8 +672,8 @@ If you want to contribute configurations to this repository please open a Pull R
     jq: .result.items[] | select(.deviceModel[].deviceClass == "com.kiwigrid.devices.location.Location" ) | .tagValues.PowerConsumedFromGrid.value - .tagValues.PowerOut.value
 ```
 
-<a id="meter-solarwatt-myreserve-pv-meter-http"></a>
-#### Solarwatt MyReserve (PV Meter/ HTTP)
+<a id="meter-solarwatt-myreserve-pv-meter"></a>
+#### Solarwatt MyReserve (PV Meter)
 
 ```yaml
 - type: custom
@@ -693,8 +683,8 @@ If you want to contribute configurations to this repository please open a Pull R
     jq: .result.items[] | select(.deviceModel[].deviceClass == "com.kiwigrid.devices.location.Location" ) | .tagValues.PowerProduced.value
 ```
 
-<a id="meter-sonnenbatterie-eco-10-battery-meter-http"></a>
-#### Sonnenbatterie Eco/10 (Battery Meter/ HTTP)
+<a id="meter-sonnenbatterie-eco-10-battery-meter"></a>
+#### Sonnenbatterie Eco/10 (Battery Meter)
 
 ```yaml
 - type: custom
@@ -708,8 +698,8 @@ If you want to contribute configurations to this repository please open a Pull R
     jq: .USOC
 ```
 
-<a id="meter-sonnenbatterie-eco-10-grid-meter-http"></a>
-#### Sonnenbatterie Eco/10 (Grid Meter/ HTTP)
+<a id="meter-sonnenbatterie-eco-10-grid-meter"></a>
+#### Sonnenbatterie Eco/10 (Grid Meter)
 
 ```yaml
 - type: custom
@@ -720,8 +710,8 @@ If you want to contribute configurations to this repository please open a Pull R
     scale: -1 # reverse direction
 ```
 
-<a id="meter-sonnenbatterie-eco-10-pv-meter-http"></a>
-#### Sonnenbatterie Eco/10 (PV Meter/ HTTP)
+<a id="meter-sonnenbatterie-eco-10-pv-meter"></a>
+#### Sonnenbatterie Eco/10 (PV Meter)
 
 ```yaml
 - type: custom
@@ -784,8 +774,8 @@ If you want to contribute configurations to this repository please open a Pull R
     jq: .data.tuples[0][1] # parse response json
 ```
 
-<a id="meter-vzlogger-push-server-websocket"></a>
-#### vzlogger (Push Server/ Websocket)
+<a id="meter-vzlogger-push-server"></a>
+#### vzlogger (Push Server)
 
 ```yaml
 - type: custom
@@ -829,20 +819,16 @@ If you want to contribute configurations to this repository please open a Pull R
   cache: 10s
 ```
 
-<a id="charger-evse-din-modbus-rtu"></a>
-#### EVSE DIN (Modbus RTU)
+<a id="charger-evse-din"></a>
+#### EVSE DIN
 
 ```yaml
 - type: simpleevse
+  # http://evracing.cz/simple-evse-wallbox
+  # either locally attached:
   device: /dev/ttyUSB0 # serial RS485 interface
-```
-
-<a id="charger-evse-din-modbus-tcp"></a>
-#### EVSE DIN (Modbus/TCP)
-
-```yaml
-- type: simpleevse
-  uri: 192.0.2.2:502 # Modbus/TCP converter adress
+  # or via TCP:
+  uri: 192.0.2.2:502 # Modbus TCP converter address
 ```
 
 <a id="charger-evse-wifi"></a>
@@ -1003,7 +989,7 @@ If you want to contribute configurations to this repository please open a Pull R
 ```
 
 <a id="charger-phoenix-em-cp-pp-eth-controller-modbus-tcp"></a>
-#### Phoenix EM-CP-PP-ETH Controller (Modbus/TCP)
+#### Phoenix EM-CP-PP-ETH Controller (Modbus TCP)
 
 ```yaml
 - type: phoenix-em-eth
@@ -1015,7 +1001,7 @@ If you want to contribute configurations to this repository please open a Pull R
 ```
 
 <a id="charger-phoenix-ev-eth-controller-modbus-tcp"></a>
-#### Phoenix EV-ETH Controller (Modbus/TCP)
+#### Phoenix EV-ETH Controller (Modbus TCP)
 
 ```yaml
 - type: phoenix-ev-eth

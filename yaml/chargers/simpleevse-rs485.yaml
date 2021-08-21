@@ -1,6 +1,0 @@
-type: simpleevse
-name: EVSE DIN (Modbus RTU)
-sample: |
-  device: /dev/ttyUSB0 # serial RS485 interface
-
-# http://evracing.cz/simple-evse-wallbox

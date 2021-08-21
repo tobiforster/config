@@ -1,5 +1,5 @@
 type: custom
-name: Solarwatt MyReserve (Grid Meter/ HTTP)
+name: Solarwatt MyReserve (Grid Meter)
 sample: |
   power:
     source: http

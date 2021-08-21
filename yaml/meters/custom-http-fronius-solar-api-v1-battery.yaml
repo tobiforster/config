@@ -1,5 +1,5 @@
 type: custom
-name: Fronius Solar API V1 (Battery Meter/ HTTP)
+name: Fronius Solar API V1 (Battery Meter)
 sample: |
   power:
     source: http

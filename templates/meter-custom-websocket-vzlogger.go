@@ -8,7 +8,7 @@ func init() {
 	template := registry.Template{
 		Class:  "meter",
 		Type:   "custom",
-		Name:   "vzlogger (Push Server/ Websocket)",
+		Name:   "vzlogger (Push Server)",
 		Sample: `power:
   source: ws # use websocket plugin
   uri: ws://192.0.2.2:8082/socket

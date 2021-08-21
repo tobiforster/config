@@ -1,5 +1,5 @@
 type: custom
-name: vzlogger (Push Server/ Websocket)
+name: vzlogger (Push Server)
 sample: |
   power:
     source: ws # use websocket plugin
