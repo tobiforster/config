@@ -25,6 +25,7 @@ If you want to contribute configurations to this repository please open a Pull R
 - [Generic (MQTT/Script)](#charger-generic-mqtt-script)
 - [go-eCharger](#charger-go-echarger)
 - [go-eCharger (Cloud)](#charger-go-echarger-cloud)
+- [Heidelberg Energy Control (Modbus RTU)](#charger-heidelberg-energy-control-modbus-rtu)
 - [i-CHARGE CION (Modbus RTU-over-TCP)](#charger-i-charge-cion-modbus-rtu-over-tcp)
 - [KEBA Connect](#charger-keba-connect)
 - [Mobile Charger Connect (Audi, Bentley, Porsche)](#charger-mobile-charger-connect-audi-bentley-porsche)
@@ -39,7 +40,6 @@ If you want to contribute configurations to this repository please open a Pull R
 - [TinkerForge WARP Charger](#charger-tinkerforge-warp-charger)
 - [TP-LINK Smart Plug](#charger-tp-link-smart-plug)
 - [Wallbe (Eco, Pro)](#charger-wallbe-eco-pro)
-- [Wallbe (pre 2019)](#charger-wallbe-pre-2019)
 
 ## Meters
 
@@ -520,10 +520,25 @@ If you want to contribute configurations to this repository please open a Pull R
 
 ```yaml
 - type: custom
-  power: # power reading
+  power:
     source: http
+    uri: http://192.0.2.2/status
+    jq: .emeters | map(.power) | add
+  energy:
+    source: http
+    uri: http://192.0.2.2/status
+    jq: .emeters | map(.total) | add
+    scale: 0.001
+  currents:
+  - source: http
     uri: http://192.0.2.2/emeter/0
-    jq: .power
+    jq: .current
+  - source: http
+    uri: http://192.0.2.2/emeter/1
+    jq: .current
+  - source: http
+    uri: http://192.0.2.2/emeter/2
+    jq: .current
 ```
 
 <a id="meter-sma-sunny-home-manager--energy-meter-speedwire"></a>
@@ -908,6 +923,17 @@ If you want to contribute configurations to this repository please open a Pull R
   cache: 10s # go-e cloud API cache duration
 ```
 
+<a id="charger-heidelberg-energy-control-modbus-rtu"></a>
+#### Heidelberg Energy Control (Modbus RTU)
+
+```yaml
+- type: heidelberg
+  device: /dev/ttyUSB0
+  baudrate: 19200
+  comset: 8E1
+  id: 1 # configurable (S2/DIP 1)
+```
+
 <a id="charger-i-charge-cion-modbus-rtu-over-tcp"></a>
 #### i-CHARGE CION (Modbus RTU-over-TCP)
 
@@ -1080,23 +1106,12 @@ If you want to contribute configurations to this repository please open a Pull R
 ```yaml
 - type: wallbe
   uri: 192.168.0.8:502 # TCP ModBus address
+  legacy: true # set only for older Wallbe devices (pre ~2019, old controller firmware)  
   meter: # only if a charge meter is connected to the controller
     power: true
     energy: true
     currents: true
-```
-
-<a id="charger-wallbe-pre-2019"></a>
-#### Wallbe (pre 2019)
-
-```yaml
-- type: wallbe
-  uri: 192.168.0.8:502 # TCP ModBus address
-  legacy: true # enable for older Wallbe devices (old controller firmware)
-  meter: # only if a charge meter is connected to the controller
-    power: true
-    energy: true
-    currents: true
+    encoding: sdm # add only when SDM meter is connected, see https://github.com/andig/evcc/discussions/1398
 ```
 
 

@@ -1,9 +1,0 @@
-type: wallbe
-name: Wallbe (pre 2019)
-sample: |
-  uri: 192.168.0.8:502 # TCP ModBus address
-  legacy: true # enable for older Wallbe devices (old controller firmware)
-  meter: # only if a charge meter is connected to the controller
-    power: true
-    energy: true
-    currents: true
