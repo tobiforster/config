@@ -1,7 +1,7 @@
 package templates 
 
 import (
-	"github.com/andig/evcc-config/registry"
+	"github.com/evcc-io/config/registry"
 )
 
 func init() {

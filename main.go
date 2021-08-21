@@ -10,7 +10,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/andig/evcc-config/registry"
+	"github.com/evcc-io/config/registry"
 
 	flag "github.com/spf13/pflag"
 	"gopkg.in/yaml.v2"
@@ -44,7 +44,7 @@ func init() {
 var sourceTemplate = `package templates {{/* Define backtick variable */}}{{$tick := "` + "`" + `"}}
 
 import (
-	"github.com/andig/evcc-config/registry"
+	"github.com/evcc-io/config/registry"
 )
 
 func init() {

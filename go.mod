@@ -1,4 +1,4 @@
-module github.com/andig/evcc-config
+module github.com/evcc-io/config
 
 go 1.16
 

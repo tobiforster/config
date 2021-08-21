@@ -1,6 +1,6 @@
 # Configuration examples for EVCC
 
-[![Build Status](https://github.com/andig/evcc-config/workflows/Build/badge.svg)](https://github.com/andig/evcc-config/actions?query=workflow%3ABuild)
+[![Build Status](https://github.com/evcc-io/config/workflows/Build/badge.svg)](https://github.com/evcc-io/config/actions?query=workflow%3ABuild)
 
 Configuration examples for the [EVCC EV Charge Controller](https://github.com/andig/evcc).
 
@@ -11,7 +11,7 @@ Additional devices can be configured using the `generic` device type and related
 
 If you want to contribute configurations to this repository please open a Pull Request ("PR"). PRs should contain:
 
-- updated or new `yaml` configuration (see https://github.com/andig/evcc-config/tree/master/yaml)
+- updated or new `yaml` configuration (see https://github.com/evcc-io/config/tree/master/yaml)
 - run `make` to generate compilable Go code (configurations are used for testing) and update the README
 
 ## Chargers
