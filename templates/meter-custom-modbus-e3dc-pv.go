@@ -13,8 +13,8 @@ func init() {
   source: modbus
   uri: e3dc.fritz.box:502
   id: 1 # ModBus slave id
-  register: # manual register configuration
-    address: 40067 # (40068 - 1) "Photovoltaikleistung in Watt"
+  register: # manual register configuration for E3/DC "Simple-Mode"
+    address: 40067 # Photovoltaikleistung in Watt
     type: holding
     decode: int32s`,
 	}

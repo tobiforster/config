@@ -9,7 +9,8 @@ func init() {
 		Class:  "meter",
 		Type:   "modbus",
 		Name:   "SMA SunnyBoy / TriPower / other PV-inverter (PV Meter)",
-		Sample: `uri: 192.0.2.2:502
+		Sample: `model: sunspec
+uri: 192.0.2.2:502
 id: 126 # sma default sunspec modbus id`,
 	}
 

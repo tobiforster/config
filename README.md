@@ -53,9 +53,6 @@ If you want to contribute configurations to this repository please open a Pull R
 - [Fronius Symo GEN24 Plus (Grid Meter)](#meter-fronius-symo-gen24-plus-grid-meter)
 - [Fronius Symo GEN24 Plus (PV Meter)](#meter-fronius-symo-gen24-plus-pv-meter)
 - [Generic](#meter-generic)
-- [Generic SunSpec 3-phase meter via inverter (Grid Meter)](#meter-generic-sunspec-3-phase-meter-via-inverter-grid-meter)
-- [Generic SunSpec battery inverter (Battery Meter)](#meter-generic-sunspec-battery-inverter-battery-meter)
-- [Generic SunSpec PV inverter (PV Meter)](#meter-generic-sunspec-pv-inverter-pv-meter)
 - [Kostal Energy Meter via inverter (Grid Meter)](#meter-kostal-energy-meter-via-inverter-grid-meter)
 - [Kostal Hybrid Inverter (Battery Meter)](#meter-kostal-hybrid-inverter-battery-meter)
 - [Kostal Inverter (PV Meter)](#meter-kostal-inverter-pv-meter)
@@ -83,6 +80,9 @@ If you want to contribute configurations to this repository please open a Pull R
 - [Sonnenbatterie Eco/10 (Battery Meter)](#meter-sonnenbatterie-eco-10-battery-meter)
 - [Sonnenbatterie Eco/10 (Grid Meter)](#meter-sonnenbatterie-eco-10-grid-meter)
 - [Sonnenbatterie Eco/10 (PV Meter)](#meter-sonnenbatterie-eco-10-pv-meter)
+- [SunSpec compliant 3-phase meter via inverter (Grid Meter)](#meter-sunspec-compliant-3-phase-meter-via-inverter-grid-meter)
+- [SunSpec compliant battery inverter (Battery Meter)](#meter-sunspec-compliant-battery-inverter-battery-meter)
+- [SunSpec compliant PV inverter (PV Meter)](#meter-sunspec-compliant-pv-inverter-pv-meter)
 - [Tasmota (HTTP)](#meter-tasmota-http)
 - [Tesla Powerwall (Battery Meter)](#meter-tesla-powerwall-battery-meter)
 - [Tesla Powerwall (Grid Meter)](#meter-tesla-powerwall-grid-meter)
@@ -136,8 +136,8 @@ If you want to contribute configurations to this repository please open a Pull R
     source: modbus
     uri: e3dc.fritz.box:502
     id: 1 # ModBus slave id
-    register: # manual register configuration
-      address: 40069
+    register: # manual register configuration for E3/DC "Simple-Mode"
+      address: 40069 # Batterie-Leistung in Watt
       type: holding
       decode: int32s
     scale: -1 # reverse direction
@@ -145,8 +145,8 @@ If you want to contribute configurations to this repository please open a Pull R
     source: modbus
     uri: e3dc.fritz.box:502
     id: 1 # ModBus slave id
-    register: # manual register configuration
-      address: 40082
+    register: # manual register configuration for E3/DC "Simple-Mode"
+      address: 40082 # Batterie-SOC in Prozent
       type: holding
       decode: uint16
 ```
@@ -160,8 +160,8 @@ If you want to contribute configurations to this repository please open a Pull R
     source: modbus
     uri: e3dc.fritz.box:502
     id: 1 # ModBus slave id
-    register: # manual register configuration
-      address: 40073
+    register: # manual register configuration for E3/DC "Simple-Mode"
+      address: 40073 # Hausverbrauchs-Leistung in Watt
       type: holding
       decode: int32s
 ```
@@ -175,8 +175,8 @@ If you want to contribute configurations to this repository please open a Pull R
     source: modbus
     uri: e3dc.fritz.box:502
     id: 1 # ModBus slave id
-    register: # manual register configuration
-      address: 40067 # (40068 - 1) "Photovoltaikleistung in Watt"
+    register: # manual register configuration for E3/DC "Simple-Mode"
+      address: 40067 # Photovoltaikleistung in Watt
       type: holding
       decode: int32s
 ```
@@ -316,35 +316,6 @@ If you want to contribute configurations to this repository please open a Pull R
       # ...
 ```
 
-<a id="meter-generic-sunspec-3-phase-meter-via-inverter-grid-meter"></a>
-#### Generic SunSpec 3-phase meter via inverter (Grid Meter)
-
-```yaml
-- type: modbus
-  uri: 192.0.2.2:502
-  id: 1
-  power: 203:W # sunspec model 203 meter
-```
-
-<a id="meter-generic-sunspec-battery-inverter-battery-meter"></a>
-#### Generic SunSpec battery inverter (Battery Meter)
-
-```yaml
-- type: modbus
-  uri: 192.0.2.2:502
-  id: 1
-  soc: ChargeState
-```
-
-<a id="meter-generic-sunspec-pv-inverter-pv-meter"></a>
-#### Generic SunSpec PV inverter (PV Meter)
-
-```yaml
-- type: modbus
-  uri: 192.0.2.2:502
-  id: 1
-```
-
 <a id="meter-kostal-energy-meter-via-inverter-grid-meter"></a>
 #### Kostal Energy Meter via inverter (Grid Meter)
 
@@ -365,6 +336,7 @@ If you want to contribute configurations to this repository please open a Pull R
 
 ```yaml
 - type: modbus
+  model: sunspec
   uri: 192.0.2.2:1502
   id: 71 # kostal default sunspec modbus id
   power: 802:W # sunspec model 802 battery
@@ -376,6 +348,7 @@ If you want to contribute configurations to this repository please open a Pull R
 
 ```yaml
 - type: modbus
+  model: sunspec
   uri: 192.0.2.2:1502
   id: 71 # kostal default sunspec modbus id
 ```
@@ -385,6 +358,7 @@ If you want to contribute configurations to this repository please open a Pull R
 
 ```yaml
 - type: modbus
+  model: sunspec
   uri: 192.0.2.2:502
   id: 71 # kostal default sunspec modbus id
 ```
@@ -545,6 +519,7 @@ If you want to contribute configurations to this repository please open a Pull R
 
 ```yaml
 - type: modbus
+  model: sunspec
   uri: 192.0.2.2:502
   id: 126 # sma default sunspec modbus id
   soc: ChargeState
@@ -555,6 +530,7 @@ If you want to contribute configurations to this repository please open a Pull R
 
 ```yaml
 - type: modbus
+  model: sunspec
   uri: 192.0.2.2:502
   id: 126 # sma default sunspec modbus id
 ```
@@ -723,6 +699,38 @@ If you want to contribute configurations to this repository please open a Pull R
     source: http
     uri: http://192.0.2.2:8080/api/v1/status
     jq: .Production_W
+```
+
+<a id="meter-sunspec-compliant-3-phase-meter-via-inverter-grid-meter"></a>
+#### SunSpec compliant 3-phase meter via inverter (Grid Meter)
+
+```yaml
+- type: modbus
+  model: sunspec
+  uri: 192.0.2.2:502
+  id: 1
+  power: 203:W # sunspec model 203 meter
+```
+
+<a id="meter-sunspec-compliant-battery-inverter-battery-meter"></a>
+#### SunSpec compliant battery inverter (Battery Meter)
+
+```yaml
+- type: modbus
+  model: sunspec
+  uri: 192.0.2.2:502
+  id: 1
+  soc: ChargeState
+```
+
+<a id="meter-sunspec-compliant-pv-inverter-pv-meter"></a>
+#### SunSpec compliant PV inverter (PV Meter)
+
+```yaml
+- type: modbus
+  model: sunspec
+  uri: 192.0.2.2:502
+  id: 1
 ```
 
 <a id="meter-tasmota-http"></a>

@@ -13,8 +13,8 @@ func init() {
   source: modbus
   uri: e3dc.fritz.box:502
   id: 1 # ModBus slave id
-  register: # manual register configuration
-    address: 40073
+  register: # manual register configuration for E3/DC "Simple-Mode"
+    address: 40073 # Hausverbrauchs-Leistung in Watt
     type: holding
     decode: int32s`,
 	}

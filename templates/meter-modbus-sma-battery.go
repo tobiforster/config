@@ -9,7 +9,8 @@ func init() {
 		Class:  "meter",
 		Type:   "modbus",
 		Name:   "SMA Sunny Island / Sunny Boy Storage (Battery Meter)",
-		Sample: `uri: 192.0.2.2:502
+		Sample: `model: sunspec
+uri: 192.0.2.2:502
 id: 126 # sma default sunspec modbus id
 soc: ChargeState`,
 	}
