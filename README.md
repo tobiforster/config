@@ -59,6 +59,7 @@ If you want to contribute configurations to this repository please open a Pull R
 - [Kostal Smart Energy Meter (Grid Meter)](#meter-kostal-smart-energy-meter-grid-meter)
 - [Multiple DC MPP strings combined (PV Meter)](#meter-multiple-dc-mpp-strings-combined-pv-meter)
 - [Multiple PV inverters combined (PV Meter)](#meter-multiple-pv-inverters-combined-pv-meter)
+- [Powerfox Poweropti (Cloud)](#meter-powerfox-poweropti-cloud)
 - [RCT Power Storage (Battery)](#meter-rct-power-storage-battery)
 - [RCT Power Storage (Grid)](#meter-rct-power-storage-grid)
 - [RCT Power Storage (PV)](#meter-rct-power-storage-pv)
@@ -399,6 +400,21 @@ If you want to contribute configurations to this repository please open a Pull R
       model: sunspec
       uri: 192.0.2.3:502
       id: 1
+```
+
+<a id="meter-powerfox-poweropti-cloud"></a>
+#### Powerfox Poweropti (Cloud)
+
+```yaml
+- type: custom
+  power:
+    source: http
+    uri: https://backend.powerfox.energy/api/2.0/my/main/current
+    auth:
+      type: basic
+      user: xxxxxxxxx
+      password: *****
+    jq: .Watt
 ```
 
 <a id="meter-rct-power-storage-battery"></a>
