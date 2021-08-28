@@ -59,6 +59,8 @@ If you want to contribute configurations to this repository please open a Pull R
 - [Kostal Smart Energy Meter (Grid Meter)](#meter-kostal-smart-energy-meter-grid-meter)
 - [Multiple DC MPP strings combined (PV Meter)](#meter-multiple-dc-mpp-strings-combined-pv-meter)
 - [Multiple PV inverters combined (PV Meter)](#meter-multiple-pv-inverters-combined-pv-meter)
+- [PowerDog (Grid Meter)](#meter-powerdog-grid-meter)
+- [PowerDog (PV Meter)](#meter-powerdog-pv-meter)
 - [Powerfox Poweropti (Cloud)](#meter-powerfox-poweropti-cloud)
 - [RCT Power Storage (Battery)](#meter-rct-power-storage-battery)
 - [RCT Power Storage (Grid)](#meter-rct-power-storage-grid)
@@ -400,6 +402,47 @@ If you want to contribute configurations to this repository please open a Pull R
       model: sunspec
       uri: 192.0.2.3:502
       id: 1
+```
+
+<a id="meter-powerdog-grid-meter"></a>
+#### PowerDog (Grid Meter)
+
+```yaml
+- type: custom
+  power:
+    source: calc #calculate current overall consumption + (current pv effort * (-1) )
+    add:
+      - source: modbus
+        uri: 192.168.1.2:502 #ip-adress and port (default-port: 502)
+        id: 1
+        register:
+          address: 40026 #register for overall consumption
+          type: holding
+          decode: int32
+  
+      - source: modbus
+        uri: 192.168.1.2:502 #ip-adress and port (default-port: 502)
+        id: 1
+        register:
+          address: 40002 #register for pv effort
+          type: holding
+          decode: int32
+        scale: -1 #scale with -1 to get a substraction
+```
+
+<a id="meter-powerdog-pv-meter"></a>
+#### PowerDog (PV Meter)
+
+```yaml
+- type: custom
+  power:
+    type: modbus
+    uri: 192.168.1.2:502 #ip-adress and port (default-port: 502)
+    id: 1
+    register:
+      address: 40002 #register for pv effort
+      type: holding
+      decode: int32
 ```
 
 <a id="meter-powerfox-poweropti-cloud"></a>
